@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017. iDoc LLC
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are
+  ~ met:
+  ~
+  ~     (1) Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~     (2) Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in
+  ~     the documentation and/or other materials provided with the
+  ~     distribution.
+  ~
+  ~     (3)The name of the author may not be used to
+  ~     endorse or promote products derived from this software without
+  ~     specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+  ~ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~ DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+  ~ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  ~ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  ~ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  ~ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+  ~ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  ~ POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<configuration debug="true">
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+		<target>System.out</target>
+		<encoder>
+			<charset>UTF-8</charset>
+			<!-- DONT USE THIS FORMATTER FOR LIVE LOGGING THE %line LINE NUMBER OUTPUTTER IS SLOW -->
+			<pattern>%date{yyMMdd-HH:mm:ss.SSS} [%c{1}:%L] %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="SCYLLA" class="ua.papka24.server.utils.logger.ScyllaAppender">
+		<scyllaPath>localhost</scyllaPath>
+		<scyllaKeyspace>papka24</scyllaKeyspace>
+		<scyllaEnable>true</scyllaEnable>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>papka.log.%d{yyyy-MM-dd}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/var/log/papka24/papka.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<prudent>true</prudent>
+		<encoder>
+			<charset>UTF-8</charset>
+			<!-- DONT USE THIS FORMATTER FOR LIVE LOGGING THE %line LINE NUMBER OUTPUTTER IS SLOW -->
+			<pattern>%date{yyMMdd-HH:mm:ss.SSS}[%mdc{real_ip}] %-5p [%c{1}][%C:%L][%thread] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="SCYLLA"/>
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
