@@ -1,0 +1,67 @@
+@import 'nib'
+@import 'colors'
+
+#CryptoPluginBlock
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  width 0
+  height 100%
+  z-index 1
+  background-color rgba(0, 0, 0, 0)
+  .key
+    font-size 12px
+    margin-top 10px
+    background white
+    width 100%
+    &.stamp
+      border 1px dashed grey;
+    &.expired .keyExpInfo
+      color red-500
+  .keyInfo
+    color blackColor
+  .keyExpInfo
+    color greenColor
+  transition(background, 0.5s, ease-in)
+  cursor pointer
+  .closeButton
+    position: absolute;
+    right: 0;
+    top: 0;
+  &.active
+    background-color rgba(0, 22, 0, 0.2)
+    width 100%
+    .CryptoPluginSubBlock
+      display block
+  .CryptoPluginSubBlock
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+    position fixed
+    border-radius 2px
+    display none
+    top 0
+    right 0
+    bottom 0
+    left 0
+    height 200px
+    width 600px
+    margin auto
+    padding 10px
+    text-align center
+    background-color white
+    border 1px solid #eee
+    .legend
+      font-size 16px
+      font-weight 100
+    .preWarn
+      color #b71c1c
+    .warning
+      color orangered
+      font-size 22px
+    .loader
+      background-image url("../img/spinner.gif")
+      margin 100px
+
+#CryptoPluginInstance
+  position absolute

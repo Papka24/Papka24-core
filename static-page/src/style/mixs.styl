@@ -1,0 +1,61 @@
+no-select()
+  -webkit-touch-callout none
+  -webkit-user-select none
+  -khtml-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+
+.card-0
+  box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24)
+
+.card-1
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+
+.card-2
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+
+.card-3
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+
+.card-4
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+
+.card-5
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
+
+
+@keyframes shake
+  10%
+    opacity: 0.62
+    transform: translate(1px, -3px) rotate(-1.5deg)
+  20%
+    opacity: 0.32
+    transform: translate(-1px, -3px) rotate(-0.5deg)
+  30%
+    opacity: 0.32
+    transform: translate(4px, 4px) rotate(-1.5deg)
+  40%
+    opacity: 0.13
+    transform: translate(3px, 4px) rotate(1.5deg)
+  50%
+    opacity: 0.04
+    transform: translate(0px, 4px) rotate(2.5deg)
+  60%
+    opacity: 0.99
+    transform: translate(3px, -3px) rotate(2.5deg)
+  70%
+    opacity: 0.76
+    transform: translate(-4px, 5px) rotate(1.5deg)
+  80%
+    opacity: 0.31
+    transform: translate(5px, 1px) rotate(0.5deg)
+  90%
+    opacity: 0.98
+    transform: translate(-1px, 2px) rotate(2.5deg)
+  0%, 100%
+    transform: translate(0px, 0px) rotate(0deg)
+
+.shake
+  animation-name shake
+  animation-duration 0.5s

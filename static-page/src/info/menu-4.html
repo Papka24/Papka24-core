@@ -1,0 +1,34 @@
+    <div style='background: #eee; text-align: right'>
+        <div class='closeButton pure-button' onclick="byId('messageBG').click()">X</div>
+    </div>
+    <div style='padding: 10px'>
+        <div id="mainMenuBlock">
+            <span class='centeredTitle' style='float: left;margin-left: 5px'>Змінити пароль</span><br>
+            <input style='float:left' id='newPassword' type='password' min='6' placeholder='Новий пароль'>
+            <div title='змінити пароль' class='closeButton pure-button'>Зберегти</div>
+            <br><br>
+
+            <span class='centeredTitle' style='float: left;margin-left: 5px'>Двухфакторна авторизація</span><br>
+            <label style='color:#6e6e6e;font-weight:100; display: inline-block;font-size: 14px;margin:5px 0 0 -10px' for='enableGoogleAuth'>
+                <input id='enableGoogleAuth' type='checkbox' class='pure-button'> &nbsp;Перевірка через <a href="https://en.wikipedia.org/wiki/Google_Authenticator" target="_blank">Google Authenticator</a>
+            </label><br><br>
+
+            <span class='centeredTitle' style='float: left;margin-left: 5px'>Змінити ім'я</span><br>
+            <input style='float: left' id='newName' type='text'>
+            <div title="змінити ім`я" class='closeButton pure-button'> Зберегти</div>
+            <br><br>
+
+            <span class='centeredTitle' style='float: left;margin-left: 5px'>Налаштування підпису</span><br>
+
+            <!--<label for="addTimeStamp" style="color:#aaa; font-weight:100; display: inline-block;font-size: 14px;margin:5px 0 10px -60px"><input type="checkbox" class="pure-button" id="addTimeStamp" checked> Додавати мітку часу до підпису</label>-->
+            <label style='color:#6e6e6e;font-weight:100; display: inline-block;font-size: 14px;margin:5px 0 0 -45px' for='addTimeStamp'><input id='addTimeStamp' name='signTimeType' type='radio' checked class='pure-button'> &nbsp;Додавати час з підписом АЦСК&nbsp;</label><br>
+            <label style='color:#6e6e6e;font-weight:100; display: inline-block;font-size: 14px;margin:5px 0 0 -45px' title="За замовченням, час підпису, що накладається на документ, формується на стороні центрального серверу. Але Ви можете накласти час Вашого комп’ютеру, якщо за якоїсь причини Вам потрібно мати інший час на документі" for='addSigningTime'><input id='addSigningTime' name='signTimeType' type='radio' class='pure-button'> &nbsp;Додавати час мого комп’ютеру</label><br>
+            <label style='color:#6e6e6e;font-weight:100; display: inline-block;font-size: 14px;margin:5px 0 0 -45px' title="Увага, підпис без часу деякі системи вважають недійсним" for='addNoTimeStamp'><input id='addNoTimeStamp' name='signTimeType' type='radio' class='pure-button'> &nbsp; Не додавати час до підпису&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </div>
+        <div id="qrGoogleAuthConfig" class="hide">
+            <img id="qrGoogleAuth"><br>
+            Для завершення налаштування Вам потрібно завантажити смартфон-додаток (<a href="https://support.google.com/accounts/answer/1066447?hl=uk&ref_topic=2784804" target="_blank">як?</a>) сканувати QR код та ввести тестовий код у вигляді 6 цифр
+            <br>
+            <input  style='width: 150px' id='newOTPPassword' onkeyup="m.setOTP()" type='text' placeholder='OTP пароль'>
+        </div>
+    </div>

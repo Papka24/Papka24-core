@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=11" http-equiv="X-UA-Compatible">
+    <title>Папка24 - підписання та зберігання електронних документів</title>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hhgceiljneockhjiakblpicadmfcipii">
+    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="Моя папка">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name = “viewport” content = “user-scalable=no, initial-scale=1.0, maximum-scale=3.0, width=device-width”>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta property="og:image" content="https://papka24.com.ua/img/logo.png" />
+    <meta property="og:title" content="Папка24 - підписання та зберігання електронних документів" />
+    <meta property="og:description" content="Папка24 – сервіс для компаній та підприємців по обміну документами між собою в електронній формі" />
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+    <link rel="stylesheet" href="/css/all.css">
+    <script src="/js/all.js"></script>
+</head>
+<body>
+<div id="canvas" class="loginMode">
+    <form id="upload" name="upload">
+        <input id="selectFile" type="file" name="file" multiple>
+        <input id="uploadFile" type="submit" value="Загрузить">
+    </form>
+    <div id="header" class="pure-u card-0 pure-form">
+        <div class="logo" onclick="documentsCollection.renderDocuments();">Папка<span>24</span></div>
+        <div id="searchBox" class="pure-u">
+            <input type="text" id="search" autocomplete="off">
+            <div class="extendedSearchClear" title="Очистити фільтри">
+                Фільтри
+                <i class="fa-times fa"></i>
+            </div>
+            <div class="extendedSearchWrap">
+                <i class="fa fa-caret-down extendedSearchImg"></i>
+            </div>
+            <button class="pure-button primary searchQuery">
+                <i class="fa fa-search fa-lg"></i>
+            </button>
+            <div class="extendedSearchContent">
+                <i class="fa-times fa closeExtendedSearchContent" title="Очистити фільтри"></i>
+                <form class="" name="docAuthorFilter" id="docAuthorFilter">
+                    <div>
+                        Контрагент:
+                        <div class="contractor">
+                            <input type="text" name="contractor" id="contractorSearch" class="" autocomplete="off"/>
+                            <!--<select id="option-four" class="filterSelect">
+                                <option>Будь хто</option>
+                            </select>-->
+                        </div>
+                    </div>
+                    <div class='checkOptions'>
+                        <ul class="radioButtonList">
+                            <li>
+                                <label for="option-one">
+                                    <input type="radio" checked="checked" value="all" name="author" id="option-one">
+                                    &nbsp;Усі документи
+                                </label>
+                            </li>
+                            <li>
+                                <label for="option-two"><input type="radio" value="my" name="author" id="option-two">
+                                    &nbsp;Завантажені мною
+                                </label>
+                            </li>
+                            <li>
+                                <label for="option-three"><input type="radio" value="me" name="author" id="option-three">
+                                    &nbsp;Отримані мною
+                                </label>
+                            </li>
+                        </ul>
+                        <ul class="radioButtonList">
+                            <li>
+                                <label for="sign-option-one">
+                                    <input type="radio" checked="checked" value="SignedOrNot" name="sign" id="sign-option-one">
+                                    &nbsp;Незалежно від підпису
+                                </label>
+                            </li>
+                            <li>
+                                <label for="sign-option-two"><input type="radio" value="onlySigned" name="sign" id="sign-option-two">
+                                    &nbsp;Тільки підписані
+                                </label>
+                            </li>
+                            <li>
+                                <label for="sign-option-three"><input type="radio" value="onlyWithoutSign" name="sign" id="sign-option-three">
+                                    &nbsp;Тільки без підпису
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        Дата:
+                        <input type="hidden" class="datapickr" id="docFilterFrom" name="docFilterFrom"/>
+                        <div class="dateSelectBox">
+                            <div class="selected" data-date="86400000">1 день</div>
+                            <ul class="contentList"> <!--data-date contains MS, TODO correct -1 month && year-->
+                                <li data-date="86400000">1 день</li>
+                                <li data-date="259200000">3 дня</li>
+                                <li data-date="604800000">1 тиждень</li>
+                                <li data-date="1209600000">2 тиждня</li>
+                                <li data-date="2592000000">1 місяць</li>
+                                <li data-date="5184000000">2 місяця</li>
+                                <li data-date="15552000000">6 місяців</li>
+                                <li data-date="31536000000">1 рік</li>
+                            </ul>
+                        </div>
+                        &nbsp;
+                        від
+                        &nbsp;
+                        <input placeholder="сьогодні" class="datapickr" id="docFilterTo" name="docFilterTo"/>
+                        <div class="pure-button primary applyExtendedFilter">
+                            <i class="fa fa-search fa-lg"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="viewControl" class="pure-u">
+            <button class="pure-button" onclick="actionDoc.changeDocRender()" title=""><i class="fa fa-lg fa-th-large"></i></button>
+            <button class="pure-button hide" onclick="actionDoc.changeSortType()"><i class="fa fa-sort-alpha-asc fa-lg"></i></button>
+        </div>
+
+        <div id="userBox" class="pure-menu-list bottom-button">
+            <img class="userImage card-0" src="/img/noname.png" onError="this.onerror=null;this.src='/img/noname.png';">
+
+            <div class="userBoxMenu hide">
+                <div class="card-0 userImageBig">
+                    <img src="/img/noname.png">
+                    <span>Змінити</span>
+                </div>
+                <a class="loginLink" onclick="actionCore.showContacts()">&nbsp;&nbsp;Перелік контрагентів</a>
+                <div>
+                    <button class="pure-button config" title="Налаштування" onclick="actionCore.showConfig()"><i class="fa fa-cog fa-lg"></i></button>
+                    <button class="pure-button" title="Закрыти сессію" onclick="actionCore.logoutAction()"><i class="fa fa-unlock-alt fa-lg"></i> Вийти</button>
+                </div>
+            </div>
+        </div>
+       <div id="friendsBox" onclick="actionCore.findContacts()">
+           <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+           <span></span>
+       </div>
+        <div class="companyBoxMenu hide">
+            <a class="loginLink" onclick="actionCore.drawCompanyManager()">Налаштування групи<br></a>
+            <span style="color:#aaa;display: inline-block;margin: 10px 0 5px;">Показати документи:</span>
+            <a class="loginLink" onclick="cm.enableCompanyListMode()"><br>Всієї групи</a>
+            <a class="loginLink" onclick="drawMessage({url:'/info/cm-3.html'}, 750, true, 500, cm.selectUser);"><br>Окремого учасника</a>
+            <a class="loginLink" onclick="cm.disableOtherListMode()"><br>Тільки свої</a>
+            <a class="loginLink" onclick="cm.leave()" style="display: inline-block;margin-top: 5px;"><br>Покинути группу</a>
+        </div>
+        <span class="userName">
+            <span id="userName"></span><br>
+            <span id="companyName">
+                <a class='loginLink'><span></span> <i class='fa fa-caret-down'></i></a>
+            </span>
+        </span>
+    </div>
+    <div id="firstPage" class="pure-form">
+        <div id="firstContent">
+            <img width='152' alt='' src='/img/ring.svg'>
+        </div>
+    </div>
+    <div id="startPage" class="pure-form hide">
+        <div class="section header card-1">
+            <section>
+                <div class="pure-u-1-2">
+                    <div class="logo">Папка<span>24</span></div>
+                </div>
+                <div class="pure-u-1-2">
+                    <a class="loginLink loginChat" title="Відкрити онлайн чат" onclick="actionLogin.openChat()"><i class="fa fa-comment-o"></i> Підтримка в чаті</a>
+                    <a class="loginLink" id="loginLink" onclick="actionLogin.goToLogin()">Увійти</a>
+                </div>
+                <div id="loginForm" class="hide">
+                    <input class="pure-u-1" type="email" placeholder="Email" autofocus>
+                    <div class="error hide">Користувача не знайдено<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                    <input class="pure-u-1" type="password" autocomplete="off" placeholder="Пароль">
+                    <div class="error hide">Неправильний пароль <a class="regLink" onclick="actionLogin.startRestorePassword.call(this)">Змінити пароль?</a><i style="margin:-10px -12px 0 10px" class="fa fa-exclamation-triangle fa-lg"></i></div>
+                    <a style="font-size:12px;float: right;cursor: pointer!important;" onclick="actionLogin.startRestorePassword.call(this)">Забули пароль?</a>
+                    <button class="pure-u-1 pure-button card-0 primary" type="submit" onclick="actionCore.loginAction()">Увійти</button>
+                    <div class="error hide"></div>
+                </div>
+            </section>
+        </div>
+        <div class="section">
+            <section id="mainSection" class="mainSection">
+                <div id="captcha" class="g-recaptcha hide"></div>
+                <div class="pure-g">
+                    <div class="pure-u-1-1 block bigText" style="font-weight:200;font-size: 30px;text-align: center">
+                        Папка24 – сервіс для компаній та підприємців по обміну документами між собою в електронній формі<br><br>
+                    </div>
+                    <div class="pure-u-1-2">
+                        <div class="block bigText" style="font-weight: 200;text-align: justify;">
+                            Тепер Ви можете легко підписувати за допомогою електронно-цифрового підпису та зберігати свої договори, акти та інші документи в електронній, а не паперовій формі. Повністю відповідає українському законодавству! <a class="loginLink" onclick="actionLogin.drawLawFAQ()">Детальніше.</a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-2">
+                        <div class="block registrationForm" id="registrationForm1">
+                            <div class="fox hide"></div>
+                            <input class="pure-u-1" id="regName" type="text" placeholder="Ім’я та прізвище">
+                            <div class="error hide">Впишіть ім’я та прізвище<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <input class="pure-u-1" name="email" type="email" placeholder="Email">
+                            <div class="error hide">Помилковий email<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <input class="pure-u-1" type="password" autocomplete="off" placeholder="Пароль">
+                            <div class="error hide">Пароль повинен бути мінімум 6 символів<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <button class="pure-u-1 pure-button card-0 primary" onclick="actionLogin.startRegistration.call(this)">Зареєструватися</button>
+                            <div class="error hide">Реєстрація тимчасово недоступна<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <div class="title hide">Майже все готово!<br><div class="normalText"> Для завершення реєстрації Вам на email надіслано інструкцію.</div></div>
+                            <div class="pure-u-1 smallText">Вже з нами? <a class="loginLink" onclick="actionLogin.goToLogin()"> Авторизуватись</a></div>
+                        </div>
+                    </div>
+                    <div id="youtubeBlock" class="pure-u-1-1 block bigText" style="margin-top: 20px; text-align: center">
+                        <div class="pure-u-1-2" style="padding-right: 30px; width: calc(50% - 31px)" >
+                            <div class="youtubeView" onclick="drawMessage('<iframe id=\'youtubeplayer\' width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/NmLFecwLkwI?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">
+                                <img width="300" src="/img/v1.png">
+                                <div class="mask">
+                                    <p><br>Переглянути</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pure-u-1-2" style="width: calc(50% - 31px)">
+                            <div class="youtubeView" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/qTXkuJl5Y_8?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">
+                                <img width="300" src="/img/v2.png">
+                                <div class="mask green">
+                                    <p><br>Переглянути</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-1 block bigText" style="font-weight:200;font-size: 20px;text-align: center; line-height: 23px;   margin: -20px 0 -20px -20px ;">
+                        <div class="pure-u-1-2">
+                            Коротка відеоінструкція
+                        </div>
+                        <div class="pure-u-1-2">
+                            Студія дизайну: приклад використання у невеликому підприємстві
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section grey">
+            <section>
+                <div class="title">Чим Папка24 краща, ніж паперові документи?</div>
+                <div class="pure-g prosAndCons">
+                    <div class="pure-u-1-2">
+                        <div class="boldText">З паперовими документами</div>
+                        <div class="pros">
+                            <div class="icon"></div>
+                            <div class="info">Ви гаєте час на пересилання та підписання документів на папері</div>
+                        </div>
+                        <div class="pros">
+                            <div class="icon"></div>
+                            <div class="info">Ви витрачаєте гроші на папір і кур'єрські послуги</div>
+                        </div>
+                        <div class="pros">
+                            <div class="icon"></div>
+                            <div class="info">Безлад! Документація зберігається в нескінченних папках і шафах</div>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-2">
+                        <div class="boldText">З Папка24</div>
+                        <div class="cons">
+                            <div class="icon"></div>
+                            <div class="info">Ви підписуєте документи за допомогою електронно-цифрового підпису, не гаючи часу</div>
+                        </div>
+                        <div class="cons">
+                            <div class="icon"></div>
+                            <div class="info">Ви надсилаєте та підписуєте документи так само легко, як e-mail</div>
+                        </div>
+                        <div class="cons">
+                            <div class="icon"></div>
+                            <div class="info">Документи структуровані та зберігаються в надійному місці</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section">
+            <section>
+                <div class="title">Як підписати документ з контрагентом через Папка24</div>
+                <div class="feature">
+                    <div class="icon"></div>
+                    <div class="info oneLine">Завантажуєте документ</div>
+                </div>
+                <div class="feature">
+                    <div class="icon pos2"></div>
+                    <div class="info oneLine">Підписуєте своїм електронно-цифровим підписом (немає ключа ЕЦП? <a class="loginLink" href="https://client-bank.privatbank.ua/p24/c2b_ekb">Отримати</a>)</div>
+                </div>
+                <div class="feature">
+                    <div class="icon pos3"></div>
+                    <div class="info">Набираєте e-mail Вашого контрагента. <br> Він отримує повідомлення про те, що йому надійшов підписаний документ</div>
+                </div>
+                <div class="feature">
+                    <div class="icon pos4"></div>
+                    <div class="info oneLine">Ваш контрагент також підписує документ, про що Ви отримаєте повідомлення</div>
+                </div>
+                <div class="feature">
+                    <div class="icon pos5"></div>
+                    <div class="info">Документи завжди доступні Вам і Вашим партнерам <br> для перегляду/друку, а також для надсилання в державні органи</div>
+                </div>
+            </section>
+        </div>
+        <div class="section grey">
+            <section>
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <div class="bonus">
+                            <div class="icon"></div>
+                            <div class="title">Надійно</div>
+                            <div class="info">Усі документи зберігаються на надійних серверах у зашифрованому вигляді</div>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="bonus">
+                            <div class="icon pos2"></div>
+                            <div class="title">Законно</div>
+                            <div class="info">Відповідно до Закону України «Про електронно-цифровий підпис», документи, підписані ЕЦП, мають таку ж юридичну силу, як паперові з підписом і печаткою. <a class="loginLink" onclick="actionLogin.drawLawFAQ()">Детальніше</a></div>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="bonus">
+                            <div class="icon pos3"></div>
+                            <div class="title">Вигідно</div>
+                            <div class="info">Ви не витрачаєте гроші на друк, зберігання та пересилання документів і значно прискорюєте свій документообіг</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section">
+            <section>
+                <div class="faq">
+                    <div class='bigText'>Скільки коштує сервіс?</div>
+                    <div class='answer'>Перші 2 місяці користування сервісом безкоштовні! До 10 завантажених документів на місяць – безкоштовно (одержані документи не враховуються). Далі – 0.5 грн за документ. Для великих обсягів можливі індивідуальні умови</div>
+
+                    <div class='bigText'>Цей сервіс лише для клієнтів ПриватБанку?</div>
+                    <div class='answer'>Ні, ним може користуватись будь-хто</div>
+
+                    <div class='bigText'>З якими ключами ЕЦП працює Папка24?</div>
+                    <div class='answer'>Сервіс працює коректно з ЕЦП усіх основних АЦСК Україні, включаючи податкову службу, міністерство юстиції, ПриватБанк та інші.</div>
+
+                    <div class="pure-g pure-u-1-1 bigText"><a class="loginLink" onclick="actionLogin.drawFAQ()">Показати відповіді на інші ЧаПи</a></div>
+                </div>
+            </section>
+        </div>
+        <div class="section grey onec">
+            <div class="onectitle">
+                <div class='bigText'>Ви можете з легкістью завантажувати та підписувати ЕЦП в 1С</div>
+                <div class='answer'>Інтеграція Папка24 з 1С дозволяє Вам налаштувати зручну роботу з документами в декілька кліків</div>
+            </div>
+            <section>
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon oneciconcloud"></div>
+                            <div class="onectitle">1C онлайн</div>
+                            <a href="https://1c.pb.ua/" class="pure-u-1 pure-button card-0 primary" target="_blank">Перейти</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/zCZrXkwG2Mc?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon"></div>
+                            <div class="onectitle">1C версія 7</div>
+                            <a href="https://client-bank.privatbank.ua/client_bank_jur/Privat24to1C77.exe" class="pure-u-1 pure-button card-0 primary" download target="_blank">Завантажити</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/tb1DaUBGsNk?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon"></div>
+                            <div class="onectitle">1C версія 8</div>
+                            <a href="https://client-bank.privatbank.ua/client_bank_jur/Privat24to1C8283.exe" class="pure-u-1 pure-button card-0 primary" download target="_blank">Завантажити</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/_aW1zcCGi1Y?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section last">
+            <section>
+                <div class="pure-g">
+                    <div class="pure-u-1-2">
+                        <div class="title block">Зареєструватися безкоштовно<br><a class="loginLink" style="font-size: 16px" onclick="actionLogin.drawLicence()"> Умови використання</a></div>
+                    </div>
+                    <div class="pure-u-1-2">
+                        <div class="block registrationForm" id="registrationForm2">
+                            <div class="fox hide"></div>
+                            <input class="pure-u-1" type="text" placeholder="Ім’я та прізвище">
+                            <div class="error hide">Впишіть ім’я та прізвище<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <input class="pure-u-1" name="email" type="email" placeholder="Email">
+                            <div class="error hide">Помилковий email<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <input class="pure-u-1" type="password" autocomplete="off" placeholder="Пароль">
+                            <div class="error hide">Пароль повинен містити мінімум 6 символів<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <button class="pure-u-1 pure-button card-0 primary" onclick="actionLogin.startRegistration.call(this)">Зареєструватися</button>
+                            <div class="error hide">Реєстрація тимчасово недоступна<i class="fa fa-exclamation-triangle fa-lg"></i></div>
+                            <div class="title hide">Майже все готово!<br><div class="normalText"> Для завершення реєстрації Вам на email надіслано інструкцію.</div></div>
+                            <div class="pure-u-1 smallText">Уже з нами? <a class="loginLink" onclick="actionLogin.goToLogin()"> Авторизуватися</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section workWithUsWrapper">
+            <section>
+                <div class="title">З нами працюють</div>
+                <div class="pure-g workWithUs">
+                    <div class="pure-u-1-4">
+                        <a href="http://vodokanal.dp.ua/" class="workWithUsIcon DniproGorvodokanal loginLink" target="_blank">
+                            <span>КП Дніпроводоканал</span>
+                        </a>
+                    </div>
+                    <div class="pure-u-1-4">
+                        <a href="http://www.poe.pl.ua/" class="workWithUsIcon PoltavaOblenergo loginLink" target="_blank">
+                            <span>ПАТ Полтава Обленерго</span>
+                        </a>
+                    </div>
+                    <div class="pure-u-1-4">
+                        <a href="https://freelancehunt.com/" class="workWithUsIcon freelancehunt loginLink" target="_blank">
+                            <span>freelancehunt.com</span>
+                        </a>
+                    </div>
+
+                    <div class="pure-u-1-4">
+                        <a href="http://www.ranok.com.ua/" class="workWithUsIcon ranok loginLink" target="_blank">
+                            <span>Видавництво Ранок</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section footer">
+            <section>
+                <div style="margin-right: 40px">Питання? Пропозиції? Потрібно відкрите API?<br>Пишіть нам на
+                    <a class="loginLink" title="Написати лист з питанням" href="mailto:info@papka24.com.ua"><i class="fa fa-envelope-o"></i> Email</a>
+                    або в <a class="loginLink" title="Відкрити онлайн чат" onclick="actionLogin.openChat()"><i class="fa fa-comment-o"></i> Чат</a>
+                </div>
+                <div>Посадовець вимагає паперовий документ?<br>
+                    Пишіть – допоможемо! <a href="mailto:sos@papka24.com.ua">sos@papka24.com.ua</a>
+                </div>
+                <div class="logoPB"></div>
+            </section>
+        </div>
+    </div>
+    <div id="menu" class="pure-u pure-menu">
+        <div class="dummy"></div>
+        <button class="pure-button primary" onclick="userConfig.avatarLoadMode=false;byId('selectFile').click();"><span>Завантажити</span><span class="progress hide"></span></button>
+        <ul id="mainMenu" class="pure-menu-list">
+            <li id="allDocsMenu" class="pure-menu-item active docsLink"><a class="pure-menu-link" title=""> Документи <span id="docCount"></span></a><a class="pure-button" title="Управление ярлыками" onclick="actionDoc.renderTagManager()"><i class="fa fa-tags"></i></a></li>
+            <li id="docTagFilter">
+                <div id="docTagFilterList"></div>
+            </li>
+            <li class="pure-menu-item trashLink"><a class="pure-menu-link" title="">Кошик<span></span></a></li>
+        </ul>
+        <div id="dragAndDropDownload" class="hide card-1">
+            <i class="fa fa-cloud-upload" style="font-size:36px"></i> Завантажити
+        </div>
+        <div style="position: absolute; bottom: 10px; left:10px; font-weight: 100; font-size: 14px">
+            <a class="loginLink" onclick="actionLogin.drawFAQ()"><i class="fa fa-question-circle-o"></i> Часті питання</a>
+            <a class="loginLink" title="Відкрити онлайн чат" style="margin-left: 5px" href="/1c.html"> <i class="fa fa-cloud"></i> 1C</a>
+            <br>
+            <a class="loginLink" title="Переглянути умови використання" onclick="actionLogin.drawLicence()"><i class="fa fa-wpforms"></i> Умови</a>
+            <a class="loginLink" title="Написати лист з питанням" style="margin: 5px 10px 0 10px; display: inline-block" href="mailto:info@papka24.com.ua"><i class="fa fa-envelope-o"></i> Email</a>
+            <a class="loginLink" title="Відкрити онлайн чат" onclick="actionLogin.openChat()"><i class="fa fa-comment-o"></i> Чат</a>
+        </div>
+    </div>
+    <div id="content" class="pure-u">
+        <div class="dummy"></div>
+        <div id="contentBlock" class="pure-u">
+        </div>
+    </div>
+    <div id="messageBG" onclick="rmClass(this, 'active'); if(byTag(byId('message'),'DIV').length>0){byTag(byId('message'),'DIV')[0].parentNode.removeChild(byTag(byId('message'),'DIV')[0])}" class="pure-form">
+        <div id="message" class="card-3"></div>
+    </div>
+    <div id="eventMessage" class="card-3 hideEvent"></div>
+</div>
+<div id="jsTitle" class="hidden"></div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<div class="showWebsocketMessage">
+    <br>
+    <p>
+        <b>Ваша компанія має <%=contractorNumber%> контрагента.</b>
+        <%if(contractorNotRegistered){%>
+            З них <%=contractorAlready%> контрагента вже користуються Папка24, а <%=contractorNotRegistered%> — ще ні.
+        <%}%>
+    </p>
+    <p>Ви можете вислати їм запрошення зареєструватися в Папка24, щоб почати економити разом на підписанні документів</p>
+    <div class="templateControls">
+        <div class="rejectOffer">Ні</div>
+        <div class="acceptOffer templatesBig sendInvitationEmails">Добре</div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "name": "samopal",
+  "version": "0.0.0",
+  "description": "builder",
+  "private": true,
+  "dependencies": {
+    "stylus": ">=0.54.5",
+    "nib": ">=1.1.0",
+    "uglify-js": ">=2.7.0",
+    "html-minify": ">=0.3.2"
+  }
+}

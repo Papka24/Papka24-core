@@ -1,0 +1,330 @@
+@import 'nib'
+@import 'colors.styl'
+
+loginFormHeight = 64px
+loginButtonHeight = 40px
+loginInputHeight = 40px
+sectionWidth = 960px
+headerLoginHeight = 64px
+
+.error
+  color blackColor
+  border 1px solid red-300
+  padding 4px 25px 4px 8px
+  border-radius 3px
+  position:relative
+  margin-top 11px
+  min-width 170px
+  text-align left
+  .fa
+    color red-300
+    float right
+    margin 3px -18px 0 10px
+  &::before,&::after
+    border medium solid transparent
+    bottom 100%
+    content " "
+    height 0
+    pointer-events none
+    position absolute
+    width 0
+    left 30px
+  &::before
+    margin-left -12px
+    border-bottom-color red-300
+    border-width 12px
+  &::after
+    margin-left -11px
+    border-bottom-color white
+    border-width 11px
+
+
+.loginMode #startPage
+    display block
+#loginForm
+  width 274px
+  position absolute;
+  z-index 100;
+  padding 0 15px 15px
+  background white
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+  &:before,&:after
+    border medium solid transparent
+    bottom 100%
+    content " "
+    height 0
+    pointer-events none
+    position  absolute
+    width 0
+    right 40px
+  &:before
+    margin-right  -12px
+    border-bottom-color alt1GrayColor
+    border-width 12px
+  &:after
+    margin-right  -11px
+    border-bottom-color white
+    border-width 11px
+  input
+    margin 15px 0 0
+    height loginInputHeight
+    background white
+  button
+    margin 15px 0 0
+    height loginButtonHeight
+  .error
+    width 210px
+  .oauth
+    color:white
+    width 30%
+    margin 15px 1%
+    font-weight 100
+  .dropbox
+    background #007ee5
+  .facebook
+    background #3b5998
+  .google
+    background #d34836
+  .regLink
+    color greenColor
+    font-weight bold
+    cursor pointer
+
+#captcha
+  position absolute
+  z-index 2000
+  background white
+  text-align center
+  &:before
+    content:"Відмітьте галочку, будь ласка"
+.registrationForm
+  .fox
+    margin-left 100px
+    width 200px
+    height 200px
+    border 1px solid alt2GrayColor
+    border-radius 150px
+    background-image url('../img/fox.png')
+    background-repeat no-repeat
+    background-size cover
+
+  .half
+    display inline-block
+    float left
+    width 200px
+    input
+      width 200px
+  .last
+    margin-left: 18px
+  input
+    margin 15px 0 0
+    height loginInputHeight
+    background white
+  button
+    margin 15px 0 0
+    height loginButtonHeight
+    font-weight bold
+  .loginLink
+    font-weight bold
+  .smallText
+    margin-top 16px;
+
+.loginLink
+  color greenColor
+  cursor pointer
+  text-decoration none
+  &.loginChat
+    line-height headerLoginHeight
+    margin-left 200px
+
+#startPage
+  top 0
+  left 0
+  right 0
+  bottom 0
+  margin auto
+  display none
+  position absolute
+  overflow-y scroll
+  min-width sectionWidth + 20px
+  .onec
+    .bigText
+      font-size 28px
+      padding 55px 0 1em 0
+    .onecbonus
+      height 12em
+      margin 15px 15px
+      background #fff
+      border 1px solid #d9d9d9
+      border-radius 2px
+      padding 1em 2em
+      text-align center
+      > a
+        margin-top 15px
+        display inline-block
+    .onecicon
+      display block
+      background-image url(../img/onecicon.png)
+      background-repeat no-repeat
+      height 55px
+      background-position: center
+    .oneciconcloud
+      background-image url(../img/oneciconcloud.png)
+    .onectitle
+      font-size 20px
+      text-align center
+      font-weight 300
+  .faq
+    padding 15px
+    .answer
+      margin 0 0 10px 30px
+  div,span,button,input
+    font-family "Avenir",Helvetica,Arial,sans-serif !important
+  .block
+    padding 8px 30px
+  .bigText
+    font-size 22px
+    line-height 40px
+    font-weight 100
+  .smallText
+    text-align center
+    font-size 16px
+  .boldText
+    text-align center
+    font-weight bold
+  .normalText
+    font-weight normal
+    font-size 18px
+  .grey
+    background mainGrayColor
+    border-top 1px solid alt2GrayColor
+    border-bottom 1px solid alt2GrayColor
+  .section
+    &.last
+      height 700px
+      background-image url('../img/prev.png')
+      background-repeat no-repeat
+      background-position -200px 193px
+    &.footer
+      border-top 1px solid alt1GrayColor
+      div
+        display inline-block
+        font-weight 100
+        line-height 26px
+      a
+        color #5c9d21
+        text-decoration none
+        cursor pointer
+      .logoPB
+        background-image url('../img/pb_logo.png')
+        background-repeat no-repeat
+        background-position 0 20px
+        width 160px
+        float right
+        line-height 54px
+        height 54px
+        text-align center
+      section
+         padding 10px 0
+  section
+    &.mainSection
+      padding 50px 0
+    font-family "Avenir",Helvetica,Arial,sans-serif !important
+    width sectionWidth
+    padding 55px 0
+    margin 0 auto
+    .title
+      font-weight 100
+      font-size 32px
+      text-align center
+      margin-bottom 55px
+  .prosAndCons
+    .pros,.cons
+      margin 35px
+      padding 12px
+      background white
+      border 1px solid alt2GrayColor
+    .icon
+      float: left
+      display inline-block
+      background-image url('../img/goodBad.png')
+      background-repeat no-repeat
+      background-position: -45px 15px;
+      margin 5px 20px 0 10px
+      height 55px
+      width 45px
+    .cons .icon
+      background-position: 0 15px;
+    .info
+      display table-cell
+      width 300px
+      margin-left 10px
+      vertical-align: middle
+      height 70px
+  .feature
+    margin 15px 30px
+    height 64px
+    margin-bottom 16px
+    .info
+      margin-left 25px
+      float left
+      width 800 px
+      font-size 18px
+      &.oneLine
+        margin-top 10px
+    .icon
+      float left
+      background-image url('../img/way.png')
+      background-repeat no-repeat
+      background-position 0 0
+      height 52px
+      width 52px
+      &.pos2
+        background-position -52px * 2 0
+      &.pos3
+        background-position -52px 0
+      &.pos4
+        background-position -52px * 3 0
+      &.pos5
+        background-position -52px * 4 0
+  .bonus
+    margin 15px 15px
+    height 420px
+    background white
+    border 1px solid alt2GrayColor
+    border-radius 2px
+    .title
+      margin-bottom 20px
+    .info
+      text-align center
+      padding 0 20px
+    .icon
+      float left
+      background-image url('../img/bonus.png')
+      background-repeat no-repeat
+      background-position -10px 0
+      height 200px
+      width 150px
+      margin 0 50px 0 70px
+      &.pos2
+        background-position -150px 0
+      &.pos3
+        background-position -150px * 2 0
+  input
+    box-shadow none
+    border-radius 2px
+  .header
+    min-width 100%
+    #loginLink
+      line-height headerLoginHeight
+      font-weight bold
+      cursor pointer
+      color greenColor
+      float right
+      margin-right 30px
+    section
+      padding 0
+    .logo
+      float left
+      line-height headerLoginHeight
+      font-size 32px

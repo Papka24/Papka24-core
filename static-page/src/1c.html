@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=11" http-equiv="X-UA-Compatible">
+    <title>Папка24 - підписання та зберігання електронних документів</title>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hhgceiljneockhjiakblpicadmfcipii">
+    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="Моя папка">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name = “viewport” content = “user-scalable=no, initial-scale=1.0, maximum-scale=3.0, width=device-width”>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta property="og:image" content="https://papka24.com.ua/img/logo.png" />
+    <meta property="og:title" content="Папка24 - підписання та зберігання електронних документів" />
+    <meta property="og:description" content="Папка24 – сервіс для компаній та підприємців по обміну документами між собою в електронній формі" />
+    <link rel="stylesheet" href="/css/all.css">
+    <script src="/js/all.js"></script>
+</head>
+<body>
+<div id="canvas" class="loginMode onecpagecanvas">
+    <div id="startPage" class="pure-form onecpage">
+        <div class="section header card-1">
+            <section>
+                <div class="pure-u-1-2">
+                    <div class="logo">Папка<span>24</span></div>
+                </div>
+            </section>
+        </div>
+        <div class="section onecTitleSection">
+            <section>
+                <div class="bigoneclogo">
+                    <img src="/img/oneciconbigcloud.png" title="1C"/>
+                </div>
+                <div class="bigText">Обмін документами з контрагентами з 1С через сервіс Папка24</div>
+            </section>
+        </div>
+        <div class="section grey onec">
+            <section>
+                <div class="onectitle">
+                    <div class='answer'>Тепер Ви можете обмінюватися документами з партнерами по бізнесу ще швидше не виходячи з 1С. Для цього Вам всього ліше досить завантажити і встановити додаток до Вашої версії 1С та слідкувати підказкам у відеоролику.</div>
+                </div>
+                <div class="pure-g">
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon oneciconcloud"></div>
+                            <div class="onectitle">1C онлайн</div>
+                            <a href="https://1c.pb.ua/" class="pure-u-1 pure-button card-0 primary" target="_blank">Перейти</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/zCZrXkwG2Mc?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon"></div>
+                            <div class="onectitle">1C версія 7</div>
+                            <a href="https://client-bank.privatbank.ua/client_bank_jur/Privat24to1C77.exe" class="pure-u-1 pure-button card-0 primary" download target="_blank">Завантажити</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/tb1DaUBGsNk?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1-3">
+                        <div class="onecbonus">
+                            <div class="onecicon"></div>
+                            <div class="onectitle">1C версія 8</div>
+                            <a href="https://client-bank.privatbank.ua/client_bank_jur/Privat24to1C8283.exe" class="pure-u-1 pure-button card-0 primary" download target="_blank">Завантажити</a>
+                            <a href="#" class="loginLink" onclick="drawMessage('<iframe id=\'youtubeplayer\'  width=\'1120\' height=\'630\' src=\'https://www.youtube.com/embed/_aW1zcCGi1Y?showinfo=0&theme=light&autoplay=1\'  frameborder=\'0\' allowfullscreen></iframe>',1120, false)">Переглянути відео</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section footer">
+            <section>
+                <div style="margin-right: 40px">З будь-яких питань звертайтеся, будь ласка
+                    в наш
+                    <a class="loginLink" title="Відкрити онлайн чат" onclick="actionLogin.openChat()"><i class="fa fa-comment-o"></i> Чат</a>
+                    або
+                    пишіть нам на
+                    <a class="loginLink" title="Написати лист з питанням" href="mailto:info@papka24.com.ua"><i class="fa fa-envelope-o"></i> info@papka24.com.ua</a>.
+                    <br>
+                    З повагою, команда Папка24.
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="messageBG" onclick="rmClass(this, 'active'); if(byTag(byId('message'),'DIV').length>0){byTag(byId('message'),'DIV')[0].parentNode.removeChild(byTag(byId('message'),'DIV')[0])}" class="pure-form">
+        <div id="message" class="card-3"></div>
+    </div>
+</div>
+</body>
+</html>

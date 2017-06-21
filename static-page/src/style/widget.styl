@@ -1,0 +1,49 @@
+@charset "UTF-8"
+#messageBG
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0
+  cursor: pointer
+  width: 0
+  height: 100%
+  position: fixed
+  transition: background 0.5s ease-in 0s
+  z-index 1001
+  &.active
+    height 100%
+    width 100%
+    background-color rgba(0, 22, 0, 0.2)
+    #message
+      display block
+  #message
+    left: 0
+    right: 0
+    bottom: 0
+    top: 0
+    height: 22px
+    width: 400px
+    display none
+    border-radius 5px
+    background-color: white
+    border: 1px solid alt1GrayColor
+    margin: auto
+    position: absolute
+    text-align: center
+    overflow hidden
+    .title
+      font-weight 200
+      text-align left
+      font-size 20px
+      margin 10px
+    .answer
+      font-size 18px
+      font-weight 100
+      margin-left: 50px;
+      text-align: justify;
+      margin-bottom 20px
+    .fa-exclamation-triangle
+      color red-A700
+    iframe
+      display inline-block

@@ -1,0 +1,1461 @@
+.pdfViewer .canvasWrapper, .textLayer {
+    overflow: hidden
+}
+
+#attachmentsView, #outlineView, .findbar label, .textLayer .endOfContent, .toolbarLabel {
+    -webkit-user-select: none;
+    -moz-user-select: none
+}
+
+#overlayContainer > .container, .dialog .buttonRow {
+    vertical-align: middle;
+    text-align: center
+}
+
+.textLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .2;
+    line-height: 1
+}
+
+.textLayer > div {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0
+}
+
+.textLayer .highlight {
+    margin: -1px;
+    padding: 1px;
+    background-color: #b400aa;
+    border-radius: 4px
+}
+
+.textLayer .highlight.begin {
+    border-radius: 4px 0 0 4px
+}
+
+.textLayer .highlight.end {
+    border-radius: 0 4px 4px 0
+}
+
+.textLayer .highlight.middle {
+    border-radius: 0
+}
+
+.textLayer .highlight.selected {
+    background-color: #006400
+}
+
+.textLayer ::selection {
+    background: #0f0
+}
+
+.textLayer ::-moz-selection {
+    background: #0f0
+}
+
+.textLayer .endOfContent {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    cursor: default;
+    -ms-user-select: none
+}
+
+.textLayer .endOfContent.active {
+    top: 0
+}
+
+.annotationLayer section {
+    position: absolute
+}
+
+.annotationLayer .linkAnnotation > a {
+    position: absolute;
+    font-size: 1em;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)
+}
+
+.annotationLayer .linkAnnotation > a:hover {
+    opacity: .2;
+    background: #ff0;
+    box-shadow: 0 2px 10px #ff0
+}
+
+.annotationLayer .textAnnotation img {
+    position: absolute;
+    cursor: pointer
+}
+
+.annotationLayer .popupWrapper {
+    position: absolute;
+    width: 20em
+}
+
+.annotationLayer .popup {
+    position: absolute;
+    z-index: 200;
+    max-width: 20em;
+    background-color: #FF9;
+    box-shadow: 0 2px 5px #333;
+    border-radius: 2px;
+    padding: .6em;
+    margin-left: 5px;
+    cursor: pointer;
+    word-wrap: break-word
+}
+
+.annotationLayer .popup h1 {
+    font-size: 1em;
+    border-bottom: 1px solid #000;
+    padding-bottom: .2em
+}
+
+.annotationLayer .popup p {
+    padding-top: .2em
+}
+
+.annotationLayer .fileAttachmentAnnotation, .annotationLayer .highlightAnnotation, .annotationLayer .squigglyAnnotation, .annotationLayer .strikeoutAnnotation, .annotationLayer .underlineAnnotation {
+    cursor: pointer
+}
+
+.pdfViewer .page {
+    direction: ltr;
+    width: 816px;
+    height: 1056px;
+    margin: 10px auto;
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)
+}
+
+body, html {
+    height: 100%
+}
+
+.pdfViewer.removePageBorders .page {
+    margin: 0 auto 10px;
+    border: none
+}
+
+.pdfViewer .page canvas {
+    margin: 0;
+    display: block
+}
+
+.pdfViewer .page .loadingIcon {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: url(images/loading-icon.gif) center no-repeat
+}
+
+#loadingBar, #outerContainer, .innerCenter, .outerCenter, .toolbar {
+    position: relative
+}
+
+.pdfPresentationMode:-webkit-full-screen .pdfViewer .page {
+    margin-bottom: 100%;
+    border: 0
+}
+
+.pdfPresentationMode:-moz-full-screen .pdfViewer .page {
+    margin-bottom: 100%;
+    border: 0
+}
+
+.pdfPresentationMode:-ms-fullscreen .pdfViewer .page {
+    margin-bottom: 100% !important;
+    border: 0
+}
+
+.pdfPresentationMode:fullscreen .pdfViewer .page {
+    margin-bottom: 100%;
+    border: 0
+}
+
+* {
+    padding: 0;
+    margin: 0
+}
+
+html {
+    font-size: 10px
+}
+
+body {
+    background-color: #fff
+}
+
+body, button, input, select {
+    font: message-box;
+    outline: 0
+}
+
+.findbar, .toolbarField, .toolbarLabel {
+    font-size: 12px;
+    line-height: 14px
+}
+
+#PDFBug .stats .title, #PDFBug button.active {
+    font-weight: 700
+}
+
+.hidden, [hidden] {
+    display: none !important
+}
+
+#viewerContainer.pdfPresentationMode:-webkit-full-screen {
+    top: 0;
+    border-top: 2px solid transparent;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: none;
+    -webkit-user-select: none
+}
+
+#viewerContainer.pdfPresentationMode:-moz-full-screen {
+    top: 0;
+    border-top: 2px solid transparent;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: none;
+    -moz-user-select: none
+}
+
+#viewerContainer.pdfPresentationMode:-ms-fullscreen {
+    top: 0 !important;
+    border-top: 2px solid transparent;
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+    cursor: none;
+    -ms-user-select: none
+}
+
+#viewerContainer.pdfPresentationMode:-ms-fullscreen::-ms-backdrop {
+    background-color: #000
+}
+
+#viewerContainer.pdfPresentationMode:fullscreen {
+    top: 0;
+    border-top: 2px solid transparent;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none
+}
+
+.pdfPresentationMode:-webkit-full-screen a:not(.internalLink) {
+    display: none
+}
+
+.pdfPresentationMode:-moz-full-screen a:not(.internalLink) {
+    display: none
+}
+
+.pdfPresentationMode:-ms-fullscreen a:not(.internalLink) {
+    display: none !important
+}
+
+.pdfPresentationMode:fullscreen a:not(.internalLink) {
+    display: none
+}
+
+.pdfPresentationMode:-webkit-full-screen .textLayer > div {
+    cursor: none
+}
+
+.pdfPresentationMode:-moz-full-screen .textLayer > div {
+    cursor: none
+}
+
+.pdfPresentationMode:-ms-fullscreen .textLayer > div {
+    cursor: none
+}
+
+.pdfPresentationMode:fullscreen .textLayer > div {
+    cursor: none
+}
+
+.findbar, .noResults, .pdfPresentationMode.pdfPresentationModeControls .textLayer > div, .pdfPresentationMode.pdfPresentationModeControls > *, .toolbar, .toolbarLabel {
+    cursor: default
+}
+
+.outerCenter {
+    pointer-events: none
+}
+
+html .outerCenter {
+    float: left;
+    left: 40%
+}
+
+.innerCenter {
+    pointer-events: auto
+}
+
+#mainContainer, #sidebarContainer, #sidebarContent, #viewerContainer {
+    position: absolute;
+    bottom: 0
+}
+
+html .innerCenter {
+    float: right;
+    right: -30%
+}
+
+#outerContainer {
+    width: 100%;
+    height: 100%
+}
+
+#sidebarContainer {
+    top: 0;
+    width: 200px;
+    visibility: hidden;
+    -webkit-transition-duration: .2s;
+    -webkit-transition-timing-function: ease;
+    transition-duration: .2s;
+    transition-timing-function: ease
+}
+
+html #sidebarContainer {
+    -webkit-transition-property: left;
+    transition-property: left;
+    left: -200px
+}
+
+#outerContainer.sidebarMoving > #sidebarContainer, #outerContainer.sidebarOpen > #sidebarContainer {
+    visibility: visible
+}
+
+html #outerContainer.sidebarOpen > #sidebarContainer {
+    left: 0
+}
+
+#mainContainer {
+    top: 0;
+    right: 0;
+    left: 0;
+    min-width: 320px;
+    -webkit-transition-duration: .2s;
+    -webkit-transition-timing-function: ease;
+    transition-duration: .2s;
+    transition-timing-function: ease
+}
+
+html #outerContainer.sidebarOpen > #mainContainer {
+    -webkit-transition-property: left;
+    transition-property: left;
+    left: 200px
+}
+
+#sidebarContent {
+    top: 32px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 200px;
+    background-color: hsla(0, 0%, 0%, .1)
+}
+
+html #sidebarContent {
+    left: 0;
+    box-shadow: inset -1px 0 0 hsla(0, 0%, 0%, .25)
+}
+
+#viewerContainer {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    top: 32px;
+    right: 0;
+    left: 0;
+    outline: 0
+}
+
+html #viewerContainer {
+    box-shadow: inset 1px 0 0 hsla(0, 0%, 100%, .05)
+}
+
+.toolbar {
+    left: 0;
+    right: 0;
+    z-index: 9999
+}
+
+#toolbarContainer {
+    width: 100%
+}
+
+#toolbarContainer, .findbar, .secondaryToolbar {
+    position: relative;
+    height: 32px;
+    background-color: #fafafa;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .24)
+}
+
+#toolbarViewer {
+    height: 32px
+}
+
+#loadingBar {
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    border-bottom: 1px solid #fff
+}
+
+#loadingBar .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #5c9d21;
+    overflow: hidden;
+    -webkit-transition: width .2s;
+    transition: width .2s
+}
+
+@-webkit-keyframes progressIndeterminate {
+    0% {
+        left: -142px
+    }
+    100% {
+        left: 0
+    }
+}
+
+@keyframes progressIndeterminate {
+    0% {
+        left: -142px
+    }
+    100% {
+        left: 0
+    }
+}
+
+#loadingBar .progress.indeterminate {
+    background-color: #999;
+    -webkit-transition: none;
+    transition: none
+}
+
+#loadingBar .progress.indeterminate .glimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: calc(100% + 150px);
+    background: repeating-linear-gradient(135deg, #bbb 0, #999 5px, #999 45px, #ddd 55px, #ddd 95px, #bbb 100px);
+    -webkit-animation: progressIndeterminate 950ms linear infinite;
+    animation: progressIndeterminate 950ms linear infinite
+}
+
+.findbar {
+    top: 32px;
+    position: absolute;
+    z-index: 10000;
+    height: 32px;
+    min-width: 16px;
+    padding: 0 6px;
+    margin: 4px 2px;
+    color: #6e6e6e;
+    text-align: left
+}
+
+html .findbar {
+    left: 0
+}
+
+#findInput[data-status=pending] {
+    background: url(images/loading-small.png) right no-repeat
+}
+
+.doorHanger, .doorHangerRight {
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3)
+}
+
+.doorHanger:after, .doorHanger:before, .doorHangerRight:after, .doorHangerRight:before {
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none
+}
+
+.doorHanger:after, .doorHangerRight:after {
+    border-bottom-color: #fafafa;
+    border-width: 8px
+}
+
+.doorHanger:before, .doorHangerRight:before {
+    border-bottom-color: #d9d9d9;
+    border-width: 9px
+}
+
+html .doorHanger:after {
+    left: 13px;
+    margin-left: -8px
+}
+
+html .doorHanger:before {
+    left: 13px;
+    margin-left: -9px
+}
+
+html .doorHangerRight:after {
+    right: 13px;
+    margin-right: -8px
+}
+
+html .doorHangerRight:before {
+    right: 13px;
+    margin-right: -9px
+}
+
+#findResultsCount {
+    background-color: #d8d8d8;
+    color: #0c1b00;
+    text-align: center;
+    padding: 3px 4px
+}
+
+#findMsg {
+    font-style: italic;
+    color: #A6B7D0
+}
+
+#findInput.notFound {
+    background-color: #f66
+}
+
+html #toolbarViewerLeft {
+    margin-left: -1px;
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+html #toolbarViewerRight {
+    position: absolute;
+    top: 0;
+    right: 0
+}
+
+html #toolbarViewerLeft > *, html #toolbarViewerMiddle > *, html #toolbarViewerRight > *, html .findbar > * {
+    position: relative;
+    float: left
+}
+
+html .splitToolbarButton {
+    margin: 3px 2px 4px 0;
+    display: inline-block
+}
+
+html .splitToolbarButton > .toolbarButton {
+    border-radius: 0;
+    float: left
+}
+
+.overlayButton, .secondaryToolbarButton, .toolbarButton {
+    border: 0;
+    width: 32px;
+    height: 25px
+}
+
+.toolbarButton > span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: hidden
+}
+
+.overlayButton[disabled], .secondaryToolbarButton[disabled], .toolbarButton[disabled] {
+    opacity: .5
+}
+
+.toolbarButton.group {
+    margin-right: 0
+}
+
+.splitToolbarButton.toggled .toolbarButton {
+    margin: 0
+}
+
+.splitToolbarButton > .toolbarButton {
+    position: relative
+}
+
+html .splitToolbarButton > .toolbarButton:first-child {
+    position: relative;
+    margin: 0 -1px 0 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-right-color: transparent
+}
+
+html .splitToolbarButton > .toolbarButton:last-child {
+    position: relative;
+    margin: 0 0 0 -1px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-left-color: transparent
+}
+
+.splitToolbarButtonSeparator {
+    padding: 8px 0;
+    width: 1px;
+    background-color: hsla(0, 0%, 0%, .5);
+    z-index: 99;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .08);
+    display: inline-block;
+    margin: 5px 0
+}
+
+html .splitToolbarButtonSeparator {
+    float: left
+}
+
+.splitToolbarButton.toggled > .splitToolbarButtonSeparator, .splitToolbarButton:hover > .splitToolbarButtonSeparator {
+    padding: 12px 0;
+    margin: 1px 0;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .03);
+    -webkit-transition-property: padding;
+    -webkit-transition-duration: 10ms;
+    -webkit-transition-timing-function: ease;
+    transition-property: padding;
+    transition-duration: 10ms;
+    transition-timing-function: ease
+}
+
+.dropdownToolbarButton, .overlayButton, .secondaryToolbarButton, .toolbarButton {
+    min-width: 16px;
+    padding: 2px 6px 0;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: #6e6e6e;
+    font-size: 12px;
+    line-height: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: default;
+    -webkit-transition-property: background-color, border-color, box-shadow;
+    -webkit-transition-duration: 150ms;
+    -webkit-transition-timing-function: ease;
+    transition-property: background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease
+}
+
+html .dropdownToolbarButton, html .overlayButton, html .toolbarButton {
+    margin: 3px 2px 4px 0
+}
+
+.secondaryToolbarButton.toggled, .splitToolbarButton.toggled > .toolbarButton.toggled, .toolbarButton.toggled {
+    background: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0)) hsla(0, 0%, 0%, .3);
+    border-color: hsla(0, 0%, 0%, .4) hsla(0, 0%, 0%, .45) hsla(0, 0%, 0%, .5);
+    box-shadow: 0 1px 1px hsla(0, 0%, 0%, .1) inset, 0 0 1px hsla(0, 0%, 0%, .2) inset, 0 1px 0 hsla(0, 0%, 100%, .05);
+    -webkit-transition-property: background-color, border-color, box-shadow;
+    -webkit-transition-duration: 10ms;
+    -webkit-transition-timing-function: linear;
+    transition-property: background-color, border-color, box-shadow;
+    transition-duration: 10ms;
+    transition-timing-function: linear
+}
+
+.secondaryToolbarButton.toggled:hover:active, .splitToolbarButton.toggled > .toolbarButton.toggled:hover:active, .toolbarButton.toggled:hover:active {
+    background-color: hsla(0, 0%, 0%, .4);
+    border-color: hsla(0, 0%, 0%, .4) hsla(0, 0%, 0%, .5) hsla(0, 0%, 0%, .55);
+    box-shadow: 0 1px 1px hsla(0, 0%, 0%, .2) inset, 0 0 1px hsla(0, 0%, 0%, .3) inset, 0 1px 0 hsla(0, 0%, 100%, .05)
+}
+
+#customScaleOption, #passwordCancel {
+    display: none
+}
+
+#pageWidthOption {
+    border-bottom: 1px rgba(255, 255, 255, .5) solid
+}
+
+input.toolbarField, select {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4px 3px;
+    vertical-align: middle
+}
+
+select {
+    color: #6e6e6e;
+    background: #fff;
+    padding: 0
+}
+
+html .splitToolbarButton:first-child, html .toolbarButton:first-child {
+    margin-left: 4px
+}
+
+html .splitToolbarButton:last-child, html .toolbarButton:last-child {
+    margin-right: 4px
+}
+
+.toolbarButtonSpacer {
+    width: 30px;
+    display: inline-block;
+    height: 1px
+}
+
+.toolbarButtonFlexibleSpacer {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    min-width: 30px
+}
+
+html #findPrevious {
+    margin-left: 3px
+}
+
+html #findNext {
+    margin-right: 3px
+}
+
+.secondaryToolbarButton::before, .toolbarButton::before {
+    position: absolute;
+    display: inline-block;
+    top: 4px;
+    left: 7px
+}
+
+.horizontalToolbarSeparator, .verticalToolbarSeparator {
+    display: block;
+    background-color: hsla(0, 0%, 0%, .5);
+    box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .08)
+}
+
+html[dir=ltr] .secondaryToolbarButton::before {
+    left: 4px
+}
+
+html .toolbarButton.findPrevious::before {
+    content: url(images/findbarButton-previous.png)
+}
+
+html .toolbarButton.findNext::before {
+    content: url(images/findbarButton-next.png)
+}
+
+html .toolbarButton.pageUp::before {
+    content: url(images/toolbarButton-pageUp.png)
+}
+
+html .toolbarButton.pageDown::before {
+    content: url(images/toolbarButton-pageDown.png)
+}
+
+.toolbarButton.zoomOut::before {
+    content: url(images/toolbarButton-zoomOut.png)
+}
+
+.toolbarButton.zoomIn::before {
+    content: url(images/toolbarButton-zoomIn.png)
+}
+
+.secondaryToolbarButton.print::before, .toolbarButton.print::before {
+    content: url(images/toolbarButton-print.png)
+}
+
+.secondaryToolbarButton.download::before, .toolbarButton.download::before {
+    content: url(images/toolbarButton-download.png)
+}
+
+.secondaryToolbarButton.bookmark, .toolbarButton.bookmark {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 0;
+    padding-top: 4px;
+    text-decoration: none
+}
+
+.secondaryToolbarButton.bookmark {
+    padding-top: 5px
+}
+
+.bookmark[href='#'] {
+    opacity: .5;
+    pointer-events: none
+}
+
+#viewFind.toolbarButton::before {
+    content: url(images/toolbarButton-search.png)
+}
+
+.secondaryToolbarButton {
+    position: relative;
+    margin: 0 0 4px;
+    padding: 3px 0 1px;
+    height: auto;
+    min-height: 25px;
+    width: auto;
+    min-width: 100%;
+    white-space: normal
+}
+
+html[dir=ltr] .secondaryToolbarButton {
+    padding-left: 24px;
+    text-align: left
+}
+
+html[dir=rtl] .secondaryToolbarButton {
+    padding-right: 24px;
+    text-align: right
+}
+
+html[dir=ltr] .secondaryToolbarButton.bookmark {
+    padding-left: 27px
+}
+
+html[dir=rtl] .secondaryToolbarButton.bookmark {
+    padding-right: 27px
+}
+
+html[dir=ltr] .secondaryToolbarButton > span {
+    padding-right: 4px
+}
+
+html[dir=rtl] .secondaryToolbarButton > span {
+    padding-left: 4px
+}
+
+.verticalToolbarSeparator {
+    padding: 8px 0;
+    margin: 8px 4px;
+    width: 1px
+}
+
+html .verticalToolbarSeparator {
+    margin-left: 2px
+}
+
+.horizontalToolbarSeparator {
+    margin: 0 0 4px;
+    height: 1px;
+    width: 100%
+}
+
+.toolbarField {
+    padding: 3px 6px;
+    margin: 4px 0;
+    border-radius: 2px;
+    background: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0)) hsla(0, 0%, 100%, .09);
+    background-clip: padding-box;
+    border-color: hsla(0, 0%, 0%, .32) hsla(0, 0%, 0%, .38) hsla(0, 0%, 0%, .42);
+    box-shadow: 0 1px 0 hsla(0, 0%, 0%, .05) inset, 0 1px 0 hsla(0, 0%, 100%, .05);
+    color: #6e6e6e;
+    outline-style: none;
+    transition-property: background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease
+}
+
+.toolbarField[type=checkbox] {
+    display: inline-block;
+    margin: 8px 0
+}
+
+.toolbarField.pageNumber {
+    background: #fff;
+    -moz-appearance: textfield;
+    min-width: 16px;
+    text-align: right;
+    width: 40px
+}
+
+.toolbarField.pageNumber::-webkit-inner-spin-button, .toolbarField.pageNumber::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.toolbarField:hover {
+    background-color: hsla(0, 0%, 100%, .11);
+    border-color: hsla(0, 0%, 0%, .4) hsla(0, 0%, 0%, .43) hsla(0, 0%, 0%, .45)
+}
+
+.toolbarField:focus {
+    background-color: hsla(0, 0%, 100%, .15);
+    border-color: #5c9d21
+}
+
+.toolbarLabel {
+    min-width: 16px;
+    padding: 3px 6px 3px 2px;
+    margin: 4px 2px 4px 0;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: #6e6e6e;
+    text-align: left
+}
+
+#thumbnailView {
+    position: absolute;
+    width: 120px;
+    top: 0;
+    bottom: 0;
+    padding: 10px 40px 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch
+}
+
+.thumbnail {
+    float: left;
+    margin-bottom: 5px
+}
+
+#thumbnailView > a:last-of-type > .thumbnail {
+    margin-bottom: 10px
+}
+
+#thumbnailView > a:last-of-type > .thumbnail:not([data-loaded]) {
+    margin-bottom: 9px
+}
+
+.thumbnail:not([data-loaded]) {
+    border: 1px dashed rgba(255, 255, 255, .5);
+    margin: -1px -1px 4px
+}
+
+.thumbnailImage {
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .5), 0 2px 8px rgba(0, 0, 0, .3);
+    opacity: .8;
+    z-index: 99;
+    background-color: #fff;
+    background-clip: content-box
+}
+
+.thumbnailSelectionRing {
+    border-radius: 2px;
+    padding: 7px
+}
+
+.thumbnail:hover > .thumbnailSelectionRing > .thumbnailImage, a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage {
+    opacity: .9
+}
+
+.thumbnail:hover > .thumbnailSelectionRing, a:focus > .thumbnail > .thumbnailSelectionRing {
+    background: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0)) hsla(0, 0%, 100%, .15);
+    background-clip: padding-box;
+    box-shadow: 0 1px 0 hsla(0, 0%, 100%, .05) inset, 0 0 1px hsla(0, 0%, 100%, .2) inset, 0 0 1px hsla(0, 0%, 0%, .2);
+    color: hsla(0, 0%, 100%, .9)
+}
+
+.thumbnail.selected > .thumbnailSelectionRing > .thumbnailImage {
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, .5);
+    opacity: 1
+}
+
+.thumbnail.selected > .thumbnailSelectionRing {
+    background: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0)) hsla(0, 0%, 100%, .3);
+    background-clip: padding-box;
+    box-shadow: 0 1px 0 hsla(0, 0%, 100%, .05) inset, 0 0 1px hsla(0, 0%, 100%, .1) inset, 0 0 1px hsla(0, 0%, 0%, .2);
+    color: hsla(0, 0%, 100%, 1)
+}
+
+#attachmentsView, #outlineView {
+    position: absolute;
+    width: 192px;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch
+}
+
+.noResults {
+    font-size: 12px;
+    color: hsla(0, 0%, 100%, .8);
+    font-style: italic
+}
+
+::selection {
+    background: rgba(0, 255, 0, .3)
+}
+
+::-moz-selection {
+    background: rgba(0, 255, 0, .3)
+}
+
+#errorWrapper {
+    background: #F55;
+    color: #fff;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    padding: 3px;
+    font-size: .8em
+}
+
+.loadingInProgress #errorWrapper {
+    top: 37px
+}
+
+#errorMessageLeft {
+    float: left
+}
+
+#errorMessageRight {
+    float: right
+}
+
+#errorMoreInfo {
+    background-color: #FFF;
+    color: #000;
+    padding: 3px;
+    margin: 3px;
+    width: 98%
+}
+
+.overlayButton {
+    width: auto;
+    margin: 3px 4px 2px !important;
+    padding: 2px 6px 3px
+}
+
+#overlayContainer {
+    display: table;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, .2);
+    z-index: 40000
+}
+
+#overlayContainer > * {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch
+}
+
+#overlayContainer > .container {
+    display: table-cell
+}
+
+#overlayContainer > .container > .dialog {
+    display: inline-block;
+    padding: 15px;
+    border-spacing: 4px;
+    color: #d8d8d8;
+    font-size: 12px;
+    line-height: 14px;
+    background: #444;
+    box-shadow: inset 1px 0 0 hsla(0, 0%, 100%, .08), inset 0 1px 1px hsla(0, 0%, 0%, .15), inset 0 -1px 0 hsla(0, 0%, 100%, .05), 0 1px 0 hsla(0, 0%, 0%, .15), 0 1px 1px hsla(0, 0%, 0%, .1);
+    border: 1px solid hsla(0, 0%, 0%, .5);
+    border-radius: 4px
+}
+
+#PDFBug, #PDFBug .stats, #PDFBug table {
+    font-size: 10px
+}
+
+.dialog > .row {
+    display: table-row
+}
+
+.dialog > .row > * {
+    color: #fff;
+    display: table-cell
+}
+
+.dialog .toolbarField {
+    margin: 5px 0
+}
+
+.dialog .separator {
+    display: block;
+    margin: 4px 0;
+    height: 1px;
+    width: 100%;
+    background-color: hsla(0, 0%, 0%, .5);
+    box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .08)
+}
+
+#PDFBug, .fileInput {
+    background: #fff;
+    position: fixed;
+    right: 0
+}
+
+.dialog :link {
+    color: #fff
+}
+
+#passwordOverlay > .dialog {
+    text-align: center
+}
+
+#documentPropertiesOverlay > .dialog, html #documentPropertiesOverlay .row > * {
+    text-align: left
+}
+
+#passwordOverlay .toolbarField {
+    width: 200px
+}
+
+#documentPropertiesOverlay .row > * {
+    min-width: 100px
+}
+
+#documentPropertiesOverlay .row > span {
+    width: 125px;
+    word-wrap: break-word
+}
+
+#documentPropertiesOverlay .row > p {
+    max-width: 225px;
+    word-wrap: break-word
+}
+
+#documentPropertiesOverlay .buttonRow {
+    margin-top: 10px
+}
+
+.clearBoth {
+    clear: both
+}
+
+.fileInput {
+    color: #000;
+    margin-top: 5px;
+    visibility: hidden;
+    top: 0
+}
+
+#PDFBug {
+    border: 1px solid #666;
+    top: 32px;
+    bottom: 0;
+    padding: 0;
+    width: 300px
+}
+
+#PDFBug .controls {
+    background: #EEE;
+    border-bottom: 1px solid #666;
+    padding: 3px
+}
+
+#PDFBug .panels {
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    right: 0;
+    top: 27px
+}
+
+.debuggerShowText {
+    background: #ff0;
+    color: #00f
+}
+
+.debuggerHideText:hover {
+    background: #ff0
+}
+
+#PDFBug .stats {
+    font-family: courier, serif;
+    white-space: pre
+}
+.toolbarLabel
+button:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12) inset
+}
+
+button:active {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .24) inset
+}
+
+#viewer.textLayer-visible .textLayer {
+    opacity: 1
+}
+
+#viewer.textLayer-visible .canvasWrapper {
+    background-color: #80ff80
+}
+
+#viewer.textLayer-visible .canvasWrapper canvas {
+    mix-blend-mode: screen
+}
+
+#viewer.textLayer-visible .textLayer > div {
+    background-color: rgba(255, 255, 0, .1);
+    color: #000;
+    border: 1px solid rgba(255, 0, 0, .5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+#viewer.textLayer-hover .textLayer > div:hover {
+    background-color: #fff;
+    color: #000
+}
+
+#viewer.textLayer-shadow .textLayer > div {
+    background-color: rgba(255, 255, 255, .6);
+    color: #000
+}
+
+@page {
+    margin: 0
+}
+
+#printContainer, .visibleLargeView, .visibleMediumView, .visibleSmallView {
+    display: none
+}
+
+@media screen and (min-resolution: 2dppx) {
+    .toolbarButton::before {
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+        top: -5px
+    }
+
+    .secondaryToolbarButton::before {
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+        top: -4px
+    }
+
+    html .toolbarButton::before {
+        left: -1px
+    }
+
+    html .secondaryToolbarButton::before {
+        left: -2px
+    }
+
+    html .toolbarButton.findPrevious::before {
+        content: url(images/findbarButton-previous@2x.png)
+    }
+
+    html .toolbarButton.findNext::before {
+        content: url(images/findbarButton-next@2x.png)
+    }
+
+    html .toolbarButton.pageUp::before {
+        content: url(images/toolbarButton-pageUp@2x.png)
+    }
+
+    html .toolbarButton.pageDown::before {
+        content: url(images/toolbarButton-pageDown@2x.png)
+    }
+
+    .toolbarButton.zoomIn::before {
+        content: url(images/toolbarButton-zoomIn@2x.png)
+    }
+
+    .toolbarButton.zoomOut::before {
+        content: url(images/toolbarButton-zoomOut@2x.png)
+    }
+
+    .secondaryToolbarButton.print::before, .toolbarButton.print::before {
+        content: url(images/toolbarButton-print@2x.png)
+    }
+
+    .secondaryToolbarButton.download::before, .toolbarButton.download::before {
+        content: url(images/toolbarButton-download@2x.png)
+    }
+
+    #viewFind.toolbarButton::before {
+        content: url(images/toolbarButton-search@2x.png)
+    }
+}
+
+@media print {
+    #errorWrapper, #loadingBox, #secondaryToolbar, #sidebarContainer, .page, .textLayer, .toolbar {
+        display: none
+    }
+
+    body {
+        background: 0 0
+    }
+
+    #viewerContainer {
+        overflow: visible
+    }
+
+    #mainContainer, #viewerContainer, .page, .page canvas {
+        position: static;
+        padding: 0;
+        margin: 0
+    }
+
+    .page {
+        float: left;
+        border: none;
+        box-shadow: none;
+        background-clip: content-box;
+        background-color: #fff
+    }
+
+    .page[data-loaded] {
+        display: block
+    }
+
+    .fileInput, body[data-mozPrintCallback] #outerContainer {
+        display: none
+    }
+
+    #printContainer canvas, body[data-mozPrintCallback] #printContainer {
+        display: block
+    }
+
+    #printContainer > div {
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: hidden
+    }
+}
+
+@media all and (max-width: 960px) {
+    html #outerContainer.sidebarMoving .outerCenter, html #outerContainer.sidebarOpen .outerCenter {
+        float: left;
+        left: 205px
+    }
+}
+
+@media all and (max-width: 900px) {
+    .sidebarOpen .hiddenLargeView {
+        display: none
+    }
+
+    .sidebarOpen .visibleLargeView {
+        display: inherit
+    }
+}
+
+@media all and (max-width: 860px) {
+    .sidebarOpen .hiddenMediumView {
+        display: none
+    }
+
+    .sidebarOpen .visibleMediumView {
+        display: inherit
+    }
+}
+
+@media all and (max-width: 770px) {
+    #sidebarContainer {
+        top: 32px;
+        z-index: 100
+    }
+
+    .loadingInProgress #sidebarContainer {
+        top: 37px
+    }
+
+    #sidebarContent {
+        top: 32px;
+        background-color: hsla(0, 0%, 0%, .7)
+    }
+
+    html #outerContainer.sidebarOpen > #mainContainer {
+        left: 0
+    }
+
+    html .outerCenter {
+        float: left;
+        left: 205px
+    }
+
+    #outerContainer .hiddenLargeView, #outerContainer .hiddenMediumView {
+        display: inherit
+    }
+
+    #outerContainer .visibleLargeView, #outerContainer .visibleMediumView {
+        display: none
+    }
+}
+
+@media all and (max-width: 700px) {
+    #outerContainer .hiddenLargeView {
+        display: none
+    }
+
+    #outerContainer .visibleLargeView {
+        display: inherit
+    }
+}
+
+@media all and (max-width: 660px) {
+    #outerContainer .hiddenMediumView {
+        display: none
+    }
+
+    #outerContainer .visibleMediumView {
+        display: inherit
+    }
+}
+
+@media all and (max-width: 600px) {
+    .hiddenSmallView {
+        display: none
+    }
+
+    .visibleSmallView {
+        display: inherit
+    }
+
+    html #outerContainer.sidebarMoving .outerCenter, html #outerContainer.sidebarOpen .outerCenter, html .outerCenter {
+        left: 156px
+    }
+
+    .toolbarButtonSpacer {
+        width: 0
+    }
+}
+
+@media all and (max-width: 510px) {
+    #pageNumberLabel, #scaleSelectContainer {
+        display: none
+    }
+}

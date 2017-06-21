@@ -1,0 +1,74 @@
+@import colors
+
+/*
+ * DataPicker
+ */
+.calendar
+  border 1px solid alt1GrayColor
+  border-radius 2px
+  padding 0
+  width 200px
+  background white
+  font-size 12px
+  font-weight 100
+  div,span
+    user-select none
+  .no-click
+    background transparent !important
+    span
+      cursor default
+      color #bbb !important
+      background transparent !important
+  .months
+    background-color mainGrayColor
+    color darkGrayColor
+    padding 3px
+    text-align center
+  .prev-month, .next-month, .next-year, .prev-year
+    padding 0 2px !important
+    font-size 20px
+    line-height 28px
+  .prev-month
+  .prev-year
+    float left
+  .next-month
+  .next-year
+    float right
+  .current-month
+    margin 0 auto
+  .months .prev-month,.months .next-month,.months .prev-year,.months .next-year, .current-month
+    color darkGrayColor
+    text-decoration none
+    padding 0 4px
+    border-radius 2px
+    cursor pointer
+  .months .prev-month:hover,.months .next-month:hover, .months .prev-year:hover,.months .next-year:hover
+    background-color alt1GrayColor
+    color black
+  table
+    border-collapse collapse
+    padding 0
+    width 100%
+  th
+    font-weight normal
+    text-align center
+  td
+    text-align right
+    padding 1px
+    width 14.3%
+    span
+      display block
+      color darkGrayColor
+      text-decoration none
+      padding 3px
+      cursor pointer
+      text-align center
+      &:hover
+        color black
+        background-color alt1GrayColor
+    &.today span
+      border 1px solid greenColor
+      border-radius 3px
+    .clear
+      padding 3px 0
+

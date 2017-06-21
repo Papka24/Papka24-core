@@ -1,0 +1,15 @@
+<div style='padding: 10px 20px 10px 10px; text-align:justify;overflow-y: auto;font-weight:200;height: 480px; cursor:default'>
+    <!--<div style="text-align:center" class="title"><b>Хто користується Папка24 з моїх контрагентів?</b></div>-->
+    <form id="uploadContacts" name="upload">
+        <input id="selectFileContacts" type="file" name="file">
+        <input id="uploadFileContacts" type="submit" value="Загрузить">
+    </form>
+    <div style="text-align: left;width: 100%" id="contactsInfoBlock">
+        <h3 style="text-align: center; width: 100%; margin: 7px"> Ваші контрагенти</h3>
+        <span style="display: inline">Тут Ви можете переглянути, хто з Ваших контрагентів вже користується Папка24. Для цього завантажте файл зі списком Ваших контрагентів (формати *.csv, *.txt, *.xslx). В цьому файлі мають бути зазначені їхні ЄДРПОУ.</span>
+        <span style="display: inline" class="hide">Перелік сформовано на підставі банківських платежів. Також Ви можете завантажити файл зі списком Ваших контрагентів (формати *.csv, *.txt, *.xslx). В цьому файлі мають бути зазначені їхні ЄДРПОУ.</span>
+        <a class="loginLink" id="contactSearch" style="margin: 10px auto">Заванажити файл.</a>
+    </div>
+    <table id="companyTable" class="pure-table" style="color:#aaa; border: none; margin-top:10px;text-align:left;" width="100%">
+    </table>
+</div>

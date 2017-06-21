@@ -1,0 +1,1584 @@
+@charset "UTF-8"
+
+@import pure
+@import plugin
+@import fontawesome
+@import mixs
+@import login
+@import start
+@import colors
+@import fontavenir
+@import widget
+@import chat
+@import datepickr
+
+menuThin = 64px
+popMenuThin = 340px
+buttonThin = 32px
+
+menuSize = 200px
+searchBoxSize = 512px
+
+minWidth = 1260px
+
+html,body
+  overflow-y hidden
+  min-width minWidth
+  margin: 0;
+  padding: 0;
+
+a, span, h1, h2, h3, html, body
+  font-family Avenir, "Avenir", Arial
+
+#canvas
+  min-height 100%
+
+#canvas, #header
+  min-width minWidth
+
+.pure-button
+  transition(all , 0.2s, ease-in-out, 0s)
+  background mainGrayColor
+  border-color alt2GrayColor
+  color darkGrayColor
+  &:hover
+    color deepBlackColor
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12)
+  &.primary
+    font 13px arial,sans-serif
+    padding 10px
+    border-radius 2px
+    text-transform uppercase
+    background greenColor
+    color mainWhiteColor
+    border solid 1px greenColor
+    &:hover
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12)
+      color white
+    &:active
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) insent
+
+.hide
+  display none !important
+
+div.logo
+    width menuSize + 20px
+    height menuThin
+    line-height menuThin
+    text-align center
+    color greenColor
+    text-shadow: 0 1px 1px rgba(1,1,1,0.5);
+    font-family Arial
+    font-weight 900
+    font-size 24px
+    cursor pointer
+    span
+      color blackColor
+      margin-left 3px
+#canvas
+  .tagFilter
+    cursor pointer
+    padding: 0 0 5px 15px
+    &:hover
+      background mainGrayColor
+    &.selected
+      padding: 0 0 5px 12px
+      border-left 3px solid greenColor
+      font-weight normal
+      color greenColor
+    .tagBlock
+      display inline-block
+      height 12px
+      width 12px
+      position relative
+      top 2px
+      margin-right 5px
+      background alt2GrayColor
+      &.disable
+        outline 1px solid greenColor
+        background white !important
+        border-radius 1px
+    span
+      max-width 85%
+      font-size 13px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      position relative
+      top 5px
+      display inline-block
+.loginMode
+  overflow hidden
+  button
+    border none
+  #menu
+    margin-left - (menuSize * 3)
+  #header
+    margin-top -100%
+    min-width 100%
+    div, span
+      display none
+  #content
+    display none
+
+#tagManager
+  .tagFilter
+    .tagBlock
+      width  28px
+      height 28px
+      float left
+      margin 0
+      top 0
+      position relative
+      .colorSelector
+        display none
+        position absolute
+        width 100px
+        height 100px
+        background #eee
+        z-index 1000
+        margin-top -5px
+        margin-left -100px
+        div
+          float left
+          width 15px
+          height 15px
+          margin 5px
+          &:hover
+            outline 1px solid white
+      &:hover .colorSelector
+        display block
+    input
+      padding 3px 5px
+      height 28px
+    button
+      height 28px
+      padding 3px 8px
+
+#header
+  transition(margin , 0.3s, ease-in-out, 0s)
+  width 100%
+  background mainGrayColor
+  position absolute
+  margin-top 0
+  top 0
+  height menuThin
+  z-index 1
+  .companyBoxMenu
+    background white
+    position:relative
+    margin 20px -150px 0 0
+    border 1px solid alt1GrayColor
+    text-align left
+    width 130px
+    padding 5px 0 5px 10px
+    top 40px
+    right 132px
+    font-size 12px
+    float:right
+    a
+      line-height 22px
+    &::before,&::after
+      border medium solid transparent
+      bottom 100%
+      content " "
+      height 0
+      pointer-events none
+      position  absolute
+      width 0
+      right 40px
+    &::before
+      margin-right  -12px
+      border-bottom-color alt1GrayColor
+      border-width 12px
+    &::after
+      margin-right  -11px
+      border-bottom-color white
+      border-width 11px
+  div.logo
+    float left
+  #searchBox
+    margin-top ((menuThin /2 ) - (buttonThin/2))
+    button
+      border-radius 0 2px 2px 0
+      height buttonThin
+      line-height buttonThin/2
+      padding 3px 20px
+    #search
+      font-size 14px
+      background white
+      transition(all , 0.3s, ease-in-out, 0s)
+      border-radius 2px 0 0 2px
+      width searchBoxSize
+      height buttonThin
+      /*padding 7px 55px 7px 8px;*/
+      padding 7px 128px 7px 8px;companyBoxMenu
+    .extendedSearchClear
+      background rgb(229, 115, 115)
+      cursor pointer
+      display inline-block
+      visibility hidden
+      height 24px
+      line-height 24px
+      margin 0 18px 0 -124px
+      padding 0 0.5em
+      position relative
+      top 2px
+      text-align center
+      border-radius 3px
+      color alt1GrayColor
+      &.js-active
+        visibility visible
+    .extendedSearchWrap
+      cursor pointer
+      display inline-block
+      height 32px
+      line-height 32px
+      margin 0 0 0 -13px
+      position relative
+      text-align center
+      width 25px;
+      opacity: 0.5;
+      &:hover
+        opacity: 0.7;
+      &.js-active
+        cursor default
+        .extendedSearchImg
+          visibility hidden
+        ~ .extendedSearchContent
+          display block;
+    .extendedSearchContent
+      background #fefefe none repeat scroll 0 0
+      border 1px solid #cccccc
+      display none
+      left 0
+      padding 0.5em
+      top 0
+      width calc(512px - 1em - 2px);
+      .applyExtendedFilter
+        float right
+        height: 32px;
+        padding: 6px 20px;
+      .datapickr
+        padding 0
+        width 10ch
+        margin 0 0.5em 0 0
+        text-align center
+      .filterSelect
+        width 160px
+        margin-left 15px
+        height 24px
+        padding 0;
+      .contractor
+        position relative
+      #contractorSearch
+        width 100%
+        padding 0;
+      label
+        margin 0.25em 0
+        display inline-block
+        cursor pointer
+      .closeExtendedSearchContent
+        float: right;
+        cursor: pointer;
+        opacity: 0.5;
+        &:hover
+          opacity: 0.7;
+      .dateSelectBox
+        margin 0 0 0 0.75em
+        background-color #f5f5f5
+        background-image linear-gradient(center top , #f5f5f5, #f1f1f1)
+        border 1px solid #cccccc
+        border-radius 3px
+        display inline-block
+        padding 0.25em 1em 0.25em 0.25em
+        position relative
+        cursor pointer
+        &:hover
+          background-color #f8f8f8
+          background-image linear-gradient(center top , #f8f8f8, #f1f1f1)
+          box-shadow 0 1px 1px rgba(0,0,0, 0.1)
+          border 1px solid #c6c6c6
+        .contentList
+          display none
+          position absolute
+          top 0
+          left 0
+          list-style none
+          margin 0
+          padding 0
+          border 1px solid #cecece
+          z-index 66
+          background #fefefe
+          width 5em
+          cursor default
+          li
+            margin 0.25em 0 0
+            padding 0.25em
+            cursor pointer
+            &:hover
+              background-color rgba(0,0,0,0.15)
+          > li:first-child
+            margin 0
+        &:active, &.js-active
+          background #f8f8f8
+          box-shadow 0 1px 2px rgba(0,0,0,0.1)
+        &.js-active
+          .contentList
+            display block
+      .checkOptions
+        overflow auto
+        .radioButtonList
+          list-style none
+          margin 0.5em 0
+          padding 0
+          float left
+          width 50%
+
+  #viewControl
+    margin-top ((menuThin /2 ) - (buttonThin/2))
+    margin-left 20px
+    button
+      height buttonThin
+      line-height buttonThin/2
+      padding 3px 9px
+  .userName
+    float right
+    color darkGrayColor
+    line-height 18px
+    font-size 16px
+    margin-top 14px
+    text-align right
+    .loginLink
+      font-size 12px
+  #friendsBox
+    display inline-block
+    //display none
+    float right
+    margin-top 11px
+    width 40px
+    height 40px
+    cursor pointer
+    &:hover
+      color: blackColor
+    i
+      position relative
+      z-index 5
+    span
+      border-radius 100%
+      display none
+      font-size 14px
+      font-weight 700
+      height 20px
+      left 75%
+      line-height 20px
+      position relative
+      text-align center
+      top -10px
+      width 20px
+      z-index 6
+      background-color deep-orange-600
+      color mainWhiteColor
+    &.newPartner
+      span
+        display block
+    .fa-users
+      margin 15px 0 0 16px
+      color: darkGrayColor
+  #userBox
+    float right
+    margin-top (menuThin *0.1)
+    margin-right ((menuThin /2 ) - (buttonThin/2))
+    font-size 14px
+    img
+      object-fit scale-down
+    a
+      font-size 12px
+    .userBoxMenu
+      background white
+      position:relative
+      margin-top 11px
+      margin-right: -74px;
+      border 1px solid alt1GrayColor
+      width 160px
+      right 75px
+      top -4px
+      cursor pointer
+      a
+        margin -10px 0 5px 10px
+        display block
+      button
+        width 90px
+        margin 5px 0 5px 5px
+        &.config
+          width 50px
+      div
+        display block
+        background mainGrayColor
+        border 1px solid alt1GrayColor
+      .userImageBig
+        margin 15px
+        width: menuThin * 2
+        height: menuThin * 2
+        border-radius (menuThin * 2 / 2)
+        overflow hidden
+        img
+          width: menuThin * 2
+          height: menuThin * 2
+        span
+          background rgba(0, 0, 0, 0.54) none repeat scroll 0 0
+          color white
+          display inline-block
+          width: menuThin * 2
+          margin-top -30px
+          position relative
+          text-align center
+          height 30px
+          top -30px
+      &::before,&::after
+        border medium solid transparent
+        bottom 100%
+        content " "
+        height 0
+        pointer-events none
+        position  absolute
+        width 0
+        right 40px
+      &::before
+        margin-right  -12px
+        border-bottom-color alt1GrayColor
+        border-width 12px
+      &::after
+        margin-right  -11px
+        border-bottom-color white
+        border-width 11px
+    .userImage
+      cursor pointer
+      margin 0 20px
+      width: menuThin * 0.8
+      height: menuThin * 0.8
+      border-radius (menuThin * 0.8 / 2)
+
+#menu
+  transition(margin , 0.3s, ease-in-out, 0s)
+  background-color white
+  absolute bottom top
+  left menuSize
+  margin-left -(menuSize)
+  height 100%
+  width menuSize
+  z-index 0
+  button
+    margin 20px
+    width menuSize - 40px
+    font-size 14px
+    font-weight 900
+    .progress
+      display block
+      background: white none repeat scroll 0 0;
+      color: #5c9d21;
+      text-align: left;
+#docFilter,#docTagFilter
+  border-radius 2px
+  padding 0 10px 10px 10px
+  font-size 16px;
+  font-weight 100
+  span.filterTitle
+    display inline-block
+    cursor pointer
+    width 100%
+    margin 10px 0 10px 0
+    font-size 14px;
+    user-select none
+    .fa
+      width 15px
+  #docAuthorFilter
+    margin -10px 0 10px 0
+  label
+    font-size 14px
+    line-height 14px
+    vertical-align middle
+    margin-left 15px
+    input
+      font-size 11px
+      height 11px
+  #docFilterFrom
+    margin-left 14px
+  input
+    margin-top 10px
+    text-align center
+    background white
+    color: #000
+    font-size 14px
+    border-radius:2px
+    transition: all 0.3s ease-in-out 0s;
+    &.datapickr
+      width 77px
+    &.errorField
+      color red-500
+      border 1px solid red-500
+  .pure-button
+    margin 2px -4px 2px 0
+    width 33%
+    font-weight 100
+    background white
+    padding 2px 0
+    &.active
+      color #333
+      background mainGrayColor
+      box-shadow 0 1px 2px rgba(0, 0, 0, 0.1) inset
+
+#docTagFilterList
+  margin 0 0 0 -14px
+  .tagFilter
+    margin-left 10px
+
+#allDocsMenu
+  .pure-button
+    float right
+    padding 0
+    position relative
+    width 30px
+    display none
+    margin -30px 10px 0 0
+  &:hover
+    background mainGrayColor
+    .pure-button
+      display inline-block
+
+.pure-menu-item
+  padding-left 5px
+  cursor pointer
+  .pure-menu-link
+    color blackColor
+    .fa-trash
+      color red-900
+  &.menu-item-divided
+    margin-top 10px
+    border-top solid 1px mainGrayColor
+  a
+    letter-spacing 1px
+  &.active
+    padding-left 0
+    border-left solid 5px greenColor
+    a
+      color greenColor
+      font-weight 900
+      letter-spacing 0
+
+#content
+  min-width minWidth
+  width 100%
+  #contentBlock
+    margin 0 0 0 menuSize
+    padding 10px 0 0 10px
+    min-width calc(100% - 220px)
+    overflow hidden
+    .emptyBlock
+      align-items center
+      display flex
+      font-size 28px
+      font-weight 100
+      height 90%
+      justify-content center
+      text-align center
+  .documentsWrapper
+    overflow auto
+    height calc(100% - 48px)
+  .checkbox
+    font-size 14px
+    &.big
+      font-size 15px
+    &:before
+      content: "\f096"
+    &.selected:before
+      content: "\f046"
+  .NavigationWrapper
+    float right
+    margin 0 5px 0 0
+    > span
+      margin 0 0 0 5px
+      padding 3px 10px
+      vertical-align middle
+      color #0c1b00
+    > button
+      float initial
+      margin 0 0 0 5px
+      padding 3px 10px
+  .mainTableWrapper
+    height calc(100% - 48px)
+    overflow-x hidden
+    overflow-y auto
+  .pure-table
+    width 100%
+    background mainWhiteColor
+    color darkGrayColor
+    border-left none
+    border-right none
+    table-layout fixed
+    .tableData
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      color deepBlackColor
+    .usersList
+      display inline-block
+      max-height 1em
+      overflow hidden
+      position relative
+      text-align justify
+      white-space normal
+      word-break break-all
+      width 100%
+      line-height 1em
+      &:after
+        background-color mainWhiteColor
+        content ""
+        height 1em
+        margin-top 0.2em
+        position absolute
+        right 0
+        width 1em
+      &:before
+        margin-top 2px
+        content "..."
+        float right
+        position relative
+      > span
+        vertical-align middle
+        > i
+          padding-right 1px
+    tr
+      cursor pointer
+      > td
+        padding 5px 12px
+      > td:nth-child(1)
+        width 22px
+        padding 0 0 0 12px
+      > td:nth-child(2)
+        width 20px
+        padding 0
+      > td:nth-child(3)
+        width 50%
+      > td:nth-child(4)
+        width 50%
+      > td:nth-child(5)
+        width 100px
+      .checkbox
+        &.selected
+          content "\f046"
+      &.selected
+        background #ffc
+        .checkbox:before
+          content "\f046"
+        .usersList:after
+          background-color #ffc !important
+
+#upload, #uploadContacts
+  position absolute;
+  top:-100px;
+  height 1px;
+  width 1px;
+
+.tableDocument
+  .tag
+    display: inline-block;
+    height: 38px;
+    margin-bottom: -24px;
+    position: relative;
+    top: -10px;
+    width: 5px;
+  &.newDocument
+    background #fefefe
+    .usersList:after
+      background-color #fefefe !important
+    td
+      font-weight 700
+      color #444
+  .docName
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+.document
+  float left
+  margin 10px
+  width 210px;
+  height 364px
+  outline 1px solid alt1GrayColor
+  cursor pointer
+  overflow hidden
+  &.newDocument
+    background white
+  &:hover
+    outline 1px solid greenColor
+    .docMenu
+      top 268px
+      margin-bottom -96px
+      height 96px
+  .docMenu
+    transition(all , 0.5s, ease-in-out, 0s)
+    border-top  1px solid alt1GrayColor
+    background mainGrayColor
+    width 210px
+    height 48px
+    margin-bottom -48px
+    position relative
+    top 316px
+    bottom 0;
+  .docInfo, .docControl
+    width 200px
+    margin 2px 5px
+    height 44px
+  .docControl
+    box-sizing border-box
+    padding-left 5px
+    a
+      margin-right 12px
+    a,button
+      width 85px
+  .docAuthor, .docDate
+    color darkGrayColor
+    font-size 11px
+  .docAuthor
+    float left
+  .docDate
+    float right
+    margin-top -25px
+    background rgba(255, 255, 255, 0.8) none repeat scroll 0 0
+    padding 0 3px
+  .docName
+    width 100%
+    font-size 13px
+    display inline-block
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    color blackColor
+    margin-top 8px
+  .docImg
+    background-size 200px auto
+    background-repeat no-repeat
+    margin 5px
+    width 200px
+    height 306px
+    font-weight 100
+    text-align center
+    color darkGrayColor
+    font-size 14px
+
+.dummy
+  height menuThin
+  width 100%
+#eventMessage
+  position absolute
+  z-index 1001
+  background yellow-300
+  top 50px
+  padding 10px 10px 15px 10px
+  opacity 1
+  transition: top 0.5s ease-in 0s, opacity 0.6s ease-in 0s
+  a
+    cursor pointer
+    font-weight bold
+    color greenColor
+    margin-left 5px
+  &.hideEvent
+    top:-50px
+    opacity 0.1
+
+// Стили для просмотра документа
+#openDoc
+  margin 0 10px 10px
+  iframe
+    border 1px solid alt2GrayColor
+#openDocMenu
+  width 100%
+  display block
+  overflow auto
+  padding 10px 0
+  z-index 999
+  background white
+  .coreBtn
+    background greenColor
+    color mainWhiteColor
+    border solid 1px greenColor
+    margin 0 0 0 10px !important
+    &:hover
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+      color white
+    &:active
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) inset
+  #docShareMenu
+    width 20px
+  .docShareMenu
+  #tagListSetter
+    display block
+    background mainWhiteColor
+    position:absolute
+    border 1px solid alt2GrayColor
+    width 300px
+    padding 10px
+    z-index 100
+    .tagFilter
+      padding 5px
+      &:hover
+        background alt1GrayColor
+    .title
+      font-weight 100
+      font-size 13px
+      text-align left
+      width 100%
+      display inline-block
+      margin-bottom 5px
+      color darkGrayColor
+    .globalShare
+      &.active
+        .description
+          display none
+        input
+          display block
+          font-size 12px
+        button
+          display block
+      .description
+        color darkGrayColor
+        font-size 12px
+        margin-bottom 7px
+        display inline-block
+      button
+        display none
+        margin 0 10px 0 0 !important
+      input
+        display none
+        float: none
+      .pure-button
+        margin 0 10px 0 0
+    input
+      padding-left: 3px
+      width 240px
+      height 25px
+      border-radius 2px
+      background white
+      float left
+      & + button
+        width 40px
+    .emailShareWrapper
+      float left
+      position relative
+      margin-bottom 10px
+    .coreBtn
+      margin 0
+      float left !important
+    .pure-button
+      float:right
+    &:before,&:after
+      border medium solid transparent
+      bottom 100%
+      content " "
+      height 0
+      pointer-events none
+      position  absolute
+      width 0
+      right 20px
+    &:before
+      margin-right  -12px
+      border-bottom-color alt1GrayColor
+      border-width 12px
+    &:after
+      margin-right  -11px
+      border-bottom-color mainWhiteColor
+      border-width 11px
+  #tagListSetter
+    width 200px
+  .backButton
+    float left
+    margin-left 0
+  .docName
+    input
+      float left
+      padding 3px 10px
+      box-shadow none
+      margin-left 10px
+      width 440px
+      background white
+      transition border 0.3s ease-in-out 0s
+      &:focus
+        outline 0
+        border-color greenColor
+    button
+      float left
+      margin 0 0 0 10px
+  button
+    float right
+    margin 0 10px 0 0
+    padding 3px 10px
+    color darkGrayColor
+    background mainWhiteColor
+    &.hideTop
+      margin-top -100px
+    &.floatLeft
+      float left
+    &:hover
+      color blackColor
+    &:active
+      box-shadow 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset
+#openDocInfo,#openDocMenu
+  .shareItemEmail
+    padding 4px 0 0
+    height 26px
+    border-left 3px solid greenColor
+    border-top 1px solid alt2GrayColor
+    border-bottom 1px solid alt2GrayColor
+    border-right  1px solid alt2GrayColor
+    border-radius 2px
+    background white
+    margin-left 2px
+    color blackColor
+    .info
+      font-weight 100
+      font-size 12px
+      width 80%
+      position relative
+    &.missing
+      border-left 3px solid red-500
+      height 50px
+      overflow hidden
+      span
+        line-height 50px
+        margin-bottom -100%
+    > div
+      overflow hidden
+      white-space nowrap
+      text-overflow ellipsis
+      width 90%
+      cursor default
+    img
+      object-fit scale-down
+      height 46px
+      width 46px
+      margin 2px
+      border-radius 24px
+      float right
+      background #c3c3c3
+    div
+      margin-left 4px
+      display inline-block
+    span
+      float right
+      cursor pointer
+      color alt2GrayColor
+      width 20px
+      text-align center
+      &:hover
+        color black
+#openDocInfo
+  .signInfo
+    margin 10px
+    width 290px
+    border none
+    border-left 3px solid greenColor
+    background mainWhiteColor
+    border-radius 2px
+    padding 0 5px
+    cursor pointer
+    &.nonameCert
+      border-left 3px solid orange-A700
+      .signTime
+        color orange-A700
+    &.signError
+      border-left 3px solid red-500
+      .signTime
+        color red-500
+    .signTime
+      font-style normal
+      font-size 10px
+      color green
+      i
+        font-style normal
+    div
+      width 290px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    span
+      font-size 12px
+      color darkGrayColor !important
+      cursor default
+      line-height 14px
+      display inline-block
+
+  .shareItemEmail
+    margin 10px
+    border none
+    background mainWhiteColor
+    border-radius 2px
+    height 50px
+    padding 0
+    div
+      margin-left 10px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    span
+      float left
+      margin 0px 0 0 10px
+      font-size 12px
+      color darkGrayColor !important
+      cursor default
+      width auto
+    p
+      line-height 50px
+      margin 0
+      float right
+      position relative
+      color #d9d9d9
+      cursor pointer
+      height 50px
+      width 50px
+      text-align center
+      background mainWhiteColor
+      &:hover
+        color blackColor
+    .shareItemEmailWrap
+      width calc(100% - 60px) !important
+      padding-left 10px
+      margin 0
+      height 100%
+      > div
+        display inline-block !important
+        margin 0 !important
+        height calc(50% - 5px)
+        padding-top 5px
+        width 100%
+      > span
+        margin 0 !important
+        display inline-block !important
+        height 50%
+        width 100%
+        text-align left
+        vertical-align top
+
+
+  .status0
+    border-left 3px solid red-400
+    span:before
+      content "Ще не підключився до Папка24"
+  .status1
+    border-left 3px solid purple-400
+    span:before
+      content "Не переглядав документ"
+  .status2
+    border-left 3px solid blue-400
+    span:before
+      content "Переглянув документ"
+  .status3
+    border-left 3px solid greenColor
+    span:before
+      content "Підписав документ"
+  .statusAuthor
+    border-left 3px solid #dce775
+    span:before
+      content "Автор"
+  .statusAuthorDeleted
+    border-left 3px solid red-400
+    span:before
+      content "Автор. Видалив свою копію"
+
+.openDocInfoDocView
+  display flex
+  flex-direction column
+  overflow hidden
+  float right
+  width popMenuThin
+  height 100%
+  border 1px solid alt2GrayColor
+  &.openDocInfoDocViewRow
+    flex-direction row
+  .list
+    border-bottom  1px solid alt2GrayColor
+    flex-grow 1
+    flex-basis auto
+    position relative
+    &.documentChat
+      flex-grow 3
+    .header
+      position relative
+      cursor pointer
+      background #fafafa
+      text-align center
+      height 32px
+      width 100%
+      line-height 32px
+      border-bottom  1px solid alt2GrayColor
+      &.doNotClick
+        cursor default
+    &.inactive
+      flex-grow 0
+      .content
+        visibility hidden
+        height 0
+        overflow hidden
+        z-index -1
+      .header
+        border-bottom 0
+      .fa-caret-down
+        transform: rotate(180deg);
+    &:last-child
+      border-bottom 0
+    .content
+      position absolute
+      height calc(100% - 33px)
+      width 100%
+      & > div
+        overflow auto
+        height 100%
+/*
+ * Autocomplete block
+ */
+#autocompleteHelper
+  position absolute
+  display none
+  border 1px solid alt1GrayColor
+  background #fff
+  overflow-x hidden
+  overflow-y auto
+  font-size 14px
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+  z-index 10000
+  div
+    float left
+    width 100%
+    height 40px
+    border-top 1px solid #eee
+    line-height 40px
+    padding-left 10px
+    cursor pointer
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+    &.ext
+      line-height 20px
+    &.sel
+      background mainGrayColor
+  span
+    font-size 12px
+    float right
+    width 100%
+    line-height 17px
+    color darkGrayColor
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+
+// Effects
+.flash
+  animation-name flash
+  animation-duration 5s
+  animation-fill-mode both
+  animation-iteration-count infinite
+
+@keyframes flash {
+  from, 50%, to {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.gearLoader
+  position: relative;
+  width: 100px;
+  margin 10px
+  height: 100px;
+  overflow hidden
+  border-radius 50px
+  z-index 1000
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.12), inset 0 1px 2px rgba(0,0,0,0.24)
+  .gear
+    position: absolute;
+    z-index: -10;
+    width: 40px;
+    height: 40px;
+    animation: spin 5s infinite;
+  .two
+    left: 40px;
+    width: 80px;
+    height: 80px;
+    animation: spin-reverse 5s infinite;
+  .three
+    top: 45px;
+    left: -10px;
+    width: 60px;
+    height: 60px;
+
+@keyframes spin
+  50%
+    transform: rotate(360deg);
+
+@keyframes spin-reverse
+  50%
+    transform: rotate(-360deg);
+
+.centeredTitle
+  display flex
+  align-items center
+  justify-content center
+  font-weight 100
+  font-size 16px
+
+input
+  border 1px solid alt1GrayColor
+  &:hover
+  &:focus
+  &:active
+    border 1px solid greenColor
+
+.certDetails
+  color: greenColor
+  padding-left 60px
+  text-align left
+  .info
+    font-weight 100
+  .errorInfo
+    border 1px solid red-500
+    padding 2px 5px
+    color red-500
+  .warnInfo
+    border 1px solid orange-500
+    padding 2px 5px
+    color orange-500
+  .center
+    text-align center
+    width 680px
+    display inline-block
+  a
+    color:darkGrayColor
+    text-decoration none
+#dragAndDropDownload
+  background white
+  border-radius 3px
+  bottom 0
+  color greenColor
+  left 220px
+  padding 30px
+  position absolute
+  text-align center
+  width: 400px
+  z-index 10001
+
+#employeeTable
+  .pure-button
+    padding 3px 10px
+#companyTable
+  .pure-button
+    padding 3px 10px
+// Effects
+.slideOutUp
+  animation-name slideOutUp
+  animation-duration 2s
+  animation-fill-mode both
+  animation-iteration-count infinite
+
+@keyframes slideOutUp {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, -100%, 0px);
+    visibility: hidden;
+  }
+}
+
+.slideInUp
+  animation-name slideInUp
+  animation-duration 1s
+  animation-fill-mode both
+  animation-iteration-count 1
+
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: hidden;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-iteration-count 1
+  animation-duration: .75s;
+}
+
+
+
+@keyframes bounceInDown {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+.bounceInDown {
+  animation-iteration-count 1
+  animation-duration: .75s;
+  animation-name: bounceInDown;
+}
+
+.youtubeView
+  width 300px
+  height 170px
+  margin 10px
+  display inline-block
+  border 10px solid #fff
+  overflow hidden
+  position relative
+  text-align center
+  box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24)
+  cursor pointer
+  &:hover
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+    .mask
+      opacity 1
+    img
+      transform(scale(1.1,1.1))
+    p
+      opacity 1
+      transform(translateY(-10px))
+      transition-delay(0.1s)
+  .mask
+    width 300px
+    height  170px
+    position absolute
+    overflow hidden
+    opacity 0
+    transition(all, 0.4s, ease-in-out)
+    background rgba(102, 175, 0, 0.4)
+    top 0
+    left 0
+  img
+    display block
+    position relative
+    transition(all, 0.2s, linear)
+  p
+    font-size 22px
+    position relative
+    color #fff
+    text-shadow 1px 1px 2px black
+    padding 10px
+    font-weight normal
+    text-align center
+    transform(translateY(120px))
+    opacity 0
+    transition(all, 0.2s, linear)
+.fancyAutoComplete
+  position relative
+  &:hover .js-active
+    background none;
+  ~ .autoCompleteWrap
+    display none
+    position absolute
+    top 100%
+    left 0
+    width 100%
+    max-height 16em
+    overflow auto
+    background #fefefe
+    border 1px solid #cccccc
+    z-index 666
+    > div
+      padding 0.15em
+      //margin 0.5em 0 0 0
+      cursor pointer
+      overflow auto
+      position relative
+      min-height 42px
+      > img
+        border-radius 50%
+        margin 0 6px 0 4px
+        width 42px
+        height 42px
+        position absolute
+        top calc(50% - 21px)
+        left 0
+      > p
+        font-weight lighter
+        color darkGrayColor
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        margin 0 0 0 52px
+        font-size 12px
+        &:first-of-type
+          font-weight normal
+          color black
+          font-size 14px
+        > b
+          font-weight normal
+          color #0c1b00
+        &:first-of-type > b
+          font-weight bold
+      &.js-active
+        background alt1GrayColor
+    > div:first-child
+      margin 0
+  &.js-active
+    ~ .autoCompleteWrap
+      display block
+#jsTitle
+  position fixed
+  background #FFFFFF
+  box-shadow 0 0 3px 0 #000000
+  padding 5px
+  max-height calc(100% - 35px - 64px) /*64 - header height, 35 - bottom offset*/
+  overflow hidden
+  > i
+    min-width 20px
+    text-align center
+#mainMenu
+  height calc(100% - 200px);
+  .pure-menu-item
+      height auto !important
+  #docTagFilter
+    max-height calc(100% - 74px)
+    min-height 37px
+    overflow auto
+#message
+  > div.showWSmessage
+    height 100%
+    width 100%
+    overflow auto
+    position relative
+    min-height 10em
+    font-size 1.15em
+.showWebsocketMessage
+  width 100%
+  height calc(100% - 43px)
+  overflow auto
+  cursor default
+  h2
+    margin 0 0 1em 0
+    text-align center
+  p
+    margin 0.5em 1em
+    text-align left
+  .controls
+    position absolute
+    right 0
+    bottom 0
+    margin 0 1em
+    width calc(100% - 2em)
+    .rejectOffer
+      float left
+      cursor pointer
+      color darkGrayColor
+  .templateControls
+    position absolute
+    right 0
+    bottom 0
+    width 100%
+    text-align center
+    margin-bottom 10px
+    > div
+      display inline-block
+      cursor pointer
+      margin-left 1em
+      padding 0.5em
+      &:hover
+        background-color mainGrayColor
+    > div:first-child
+      margin-right 1em
+    .rejectOffer
+      color darkGrayColor
+    .acceptOffer
+      background greenColor
+      color mainWhiteColor
+      font-weight bold
+      padding 0.5em 2em
+      &:hover
+        background light-green-700
+.workWithUsWrapper
+  border-top 1px solid alt2GrayColor
+  .title
+    margin-bottom 0 !important
+.workWithUs
+  text-align center
+  .workWithUsIcon
+    background-size auto 4em
+    background-position center
+    background-repeat no-repeat
+    width 95%
+    height 10em
+    display inline-block
+    vertical-align bottom
+    &.DniproGorvodokanal
+      background-image URL('/img/logos/DniproGorvodokanal.png')
+    &.PoltavaOblenergo
+      background-size 80%
+      background-image URL('/img/logos/PoltavaOblenergo.jpg')
+    &.freelancehunt
+      background-size 80%
+      background-image URL('/img/logos/freelancehunt.png')
+    &.ranok
+      background-image URL('/img/logos/ranok.png')
+    > span
+      line-height 18em /*magical vertical-align bottom*/
+/*1C.html only*/
+.onecpagecanvas
+  max-width 960px !important
+  min-width 400px !important
+.onecpage
+  > div
+    > section
+      max-width 960px
+  .onec .bigText
+    padding 0 0 1em 0
+  .onecTitleSection
+      text-align center
+      padding 2em 0 1em 0
+      .bigText
+        width 50%
+        font-size 1.5em
+        margin 2em auto 0
+  .onectitle
+    margin 0 auto
+  .footer
+    text-align center
+
