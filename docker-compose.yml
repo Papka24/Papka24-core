@@ -1,0 +1,25 @@
+version: '2'
+services:
+  static:
+    build:
+      context: ./devops/static
+    environment:
+    links:
+      - server
+    ports:
+      - 80:80
+  server:
+    build:
+      context: ./devops/server
+      args:
+        - POSTGRES_PASSWORD
+    environment:
+    links:
+      - db
+    ports:
+      - 7777:7777
+  db:
+    build:
+      context: ./devops/db
+    environment:
+      - POSTGRES_PASSWORD
