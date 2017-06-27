@@ -82,6 +82,7 @@ public abstract class ScyllaCluster {
         this.scyllaPath = scyllaPath;
         this.scyllaPort = scyllaPort;
         this.scyllaKeyspace = scyllaKeyspace;
+        System.out.printf("cluster parameters: %s, %s\n", scyllaPath, scyllaPort);
         lock.lock();
         try {
             if (cluster == null) {

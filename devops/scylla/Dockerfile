@@ -1,2 +1,2 @@
-FROM postgres:9.6.3
+FROM scylladb/scylla
 MAINTAINER vladislav.kurmaz@gmail.com

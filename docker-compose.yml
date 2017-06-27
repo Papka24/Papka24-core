@@ -13,13 +13,19 @@ services:
     links:
       - postgres
       - redis
+      - scylla
     ports:
       - 7777:7777
   postgres:
     build:
       context: ./devops/postgres
     environment:
+      - POSTGRES_USER
       - POSTGRES_PASSWORD
+      - POSTGRES_DB
   redis:
     build:
       context: ./devops/redis
+  scylla:
+    build:
+      context: ./devops/scylla
