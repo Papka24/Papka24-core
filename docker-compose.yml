@@ -3,23 +3,23 @@ services:
   static:
     build:
       context: ./devops/static
-    environment:
-    links:
-      - server
     ports:
       - 80:80
+    links:
+      - server
   server:
     build:
       context: ./devops/server
-      args:
-        - POSTGRES_PASSWORD
-    environment:
     links:
-      - db
+      - postgres
+      - redis
     ports:
       - 7777:7777
-  db:
+  postgres:
     build:
-      context: ./devops/db
+      context: ./devops/postgres
     environment:
       - POSTGRES_PASSWORD
+  redis:
+    build:
+      context: ./devops/redis
