@@ -1,4 +1,4 @@
 #!/bin/bash
-sleep 30
+sleep 20
 cd /home
 java -Xmx256m -jar /home/papka-24.jar

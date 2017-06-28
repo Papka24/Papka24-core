@@ -17,4 +17,9 @@ rm -R ./devops/server/dist
 mkdir ./devops/server/dist
 cp ./server/build/libs/papka-24.jar ./devops/server/dist
 
+rm -R ./devops/postgres/dist
+mkdir ./devops/postgres/dist
+cp ./server/build/resources/main/sql/CreateDB.sql ./devops/postgres/dist
+
 docker-compose up
+
