@@ -60,7 +60,7 @@ public abstract class ScyllaCluster {
 
     protected ScyllaCluster(){
         System.out.println("cluster begin");
-        scyllaPath = Main.property.getProperty("scylla.path");
+        scyllaPath = "scylla";//Main.property.getProperty("scylla.path");
         scyllaPort = Main.property.getProperty("scylla.port");
         scyllaKeyspace = Main.property.getProperty("scylla.keyspace");
         lock.lock();
@@ -79,9 +79,10 @@ public abstract class ScyllaCluster {
 
     public ScyllaCluster(String scyllaPath, String scyllaPort, String scyllaKeyspace){
         System.out.println("cluster begin");
-        this.scyllaPath = scyllaPath;
+        this.scyllaPath = "scylla";//scyllaPath;
         this.scyllaPort = scyllaPort;
         this.scyllaKeyspace = scyllaKeyspace;
+        System.out.printf("cluster parameters: %s, %s\n", scyllaPath, scyllaPort);
         lock.lock();
         try {
             if (cluster == null) {

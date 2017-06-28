@@ -94,7 +94,8 @@ task setVersionProperty {
         args = ['log', '-1', '--format=%ct']
         standardOutput = result
     }
-    version = (new SimpleDateFormat("yyMMdd")).format(new Date(1000*Long.parseLong(result.toString().replaceAll("[^\\d.]", ""))))
+//    version = (new SimpleDateFormat("yyMMdd")).format(new Date(1000*Long.parseLong(result.toString().replaceAll("[^\\d.]", ""))))
+    version = '24'
 
     def commit = new ByteArrayOutputStream()
     exec{
@@ -112,7 +113,8 @@ task dist(){
             from shadowJar.archivePath
             into distPath
         }
-        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka-${version}.jar"), link: "${distPath}papka.jar")
+//        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka-${version}.jar"), link: "${distPath}papka.jar")
+        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka24.jar"), link: "${distPath}papka.jar")
     }
 }
 
