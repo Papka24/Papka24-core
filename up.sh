@@ -1,27 +1,41 @@
 #!/bin/bash
 
-sed -i "/server.domain=/ s/=.*/=1111/" ./server/src/main/resources/config.properties
+envFile=".env"
 
-: '
-pushd static-page
-gradle build
-popd
+if [ -f "$envFile" ]
+then
+  . $envFile
 
-pushd server
-gradle shadowJar
-popd
+  sed -i "/server.domain=/ s/=.*/=$SERVER_DOMAIN/" ./server/src/main/resources/config.properties
+  sed -i "/jdbc.database=/ s/=.*/=$POSTGRES_DB/" ./server/src/main/resources/config.properties
+  sed -i "/jdbc.username=/ s/=.*/=$POSTGRES_USER/" ./server/src/main/resources/config.properties
+  sed -i "/jdbc.password=/ s/=.*/=$POSTGRES_PASSWORD/" ./server/src/main/resources/config.properties
 
-rm -R ./devops/static/dist
-mkdir ./devops/static/dist
-cp -R ./static-page/papka/* ./devops/static/dist
 
-rm -R ./devops/server/dist
-mkdir ./devops/server/dist
-cp ./server/build/libs/papka-24.jar ./devops/server/dist
+  pushd static-page
+  gradle build
+  popd
 
-rm -R ./devops/postgres/dist
-mkdir ./devops/postgres/dist
-cp ./server/build/resources/main/sql/CreateDB.sql ./devops/postgres/dist
+  pushd server
+  gradle shadowJar
+  popd
 
-docker-compose up
-'
+  rm -R ./devops/static/dist
+  mkdir ./devops/static/dist
+  cp -R ./static-page/papka/* ./devops/static/dist
+
+  rm -R ./devops/server/dist
+  mkdir ./devops/server/dist
+  cp ./server/build/libs/papka-24.jar ./devops/server/dist
+
+  rm -R ./devops/postgres/dist
+  mkdir ./devops/postgres/dist
+  cp ./server/build/resources/main/sql/CreateDB.sql ./devops/postgres/dist
+
+  docker-compose up
+
+else
+  echo "'$envFile' not found."
+  echo "copy '.env.template' to '$envFile' and update it according to your environment"
+fi
+
