@@ -19,3 +19,5 @@ hs_err_pid*
 /classes/
 /static-page/bower_components/
 /static-page/node_modules/
+
+.env

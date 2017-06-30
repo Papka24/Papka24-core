@@ -32,7 +32,7 @@ then
   mkdir ./devops/postgres/dist
   cp ./server/build/resources/main/sql/CreateDB.sql ./devops/postgres/dist
 
-  docker-compose up
+  sudo docker-compose up $1
 
 else
   echo "'$envFile' not found."

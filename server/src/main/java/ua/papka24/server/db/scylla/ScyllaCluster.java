@@ -79,6 +79,7 @@ public abstract class ScyllaCluster {
 
     public ScyllaCluster(String scyllaPath, String scyllaPort, String scyllaKeyspace){
         System.out.println("cluster begin");
+        // commented due to next issue https://github.com/Papka24/base/issues/8
         this.scyllaPath = "scylla";//scyllaPath;
         this.scyllaPort = scyllaPort;
         this.scyllaKeyspace = scyllaKeyspace;
