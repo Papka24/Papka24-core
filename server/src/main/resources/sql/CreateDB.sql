@@ -457,5 +457,5 @@ $$ language plpgsql;
 
 create trigger partition_resource_cache_insert before insert on resource_cache for each row execute procedure resource_cache_partition();
 
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO papka24_ro;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO papka24;
 COMMENT ON table users is '36';
