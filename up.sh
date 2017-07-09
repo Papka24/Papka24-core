@@ -10,7 +10,10 @@ then
   sed -i "/jdbc.database=/ s/=.*/=$POSTGRES_DB/" ./server/src/main/resources/config.properties
   sed -i "/jdbc.username=/ s/=.*/=$POSTGRES_USER/" ./server/src/main/resources/config.properties
   sed -i "/jdbc.password=/ s/=.*/=$POSTGRES_PASSWORD/" ./server/src/main/resources/config.properties
+  sed -i "/recaptcha.secret=/ s/=.*/=$RECAPTCHA_SERVER/" ./server/src/main/resources/config.properties
 
+
+  sed -i "/var reCaptcha=/ s/=.*/=\"$RECAPTCHA_CLIENT\";/" ./static-page/src/js/actionLogin.js
 
   pushd static-page
   gradle build
