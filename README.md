@@ -1,4 +1,9 @@
 # Papka24
+## Prerequisites
+### Reqister reCAPTCHA
+* Use next link to register your domain https://www.google.com/recaptcha/admin
+* Fill two properties **RECAPTCHA_CLIENT**, **RECAPTCHA_SERVER** in .env file with received keys 
+
 ## Quick start with docker compose
 * Grab Ubuntu VM (16.x)
 * Clone repository
