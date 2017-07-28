@@ -2,9 +2,10 @@ version: '2'
 services:
   static:
     build:
-      context: ./devops/static
+      context: ./devops/static-${SERVER_TYPE}
     ports:
       - 80:80
+      - 443:443
     links:
       - server
   server:

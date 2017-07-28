@@ -9,4 +9,16 @@
 * Clone repository
 * Run './devops/prereq-ubuntu.sh'
 * Copy '.env.template' to '.env' and update it according to your environment
+```
+SERVER_DOMAIN=<ip adress>|<FQDN>
+SERVER_TYPE=nginx | apache
+
+POSTGRES_USER=papka24
+POSTGRES_PASSWORD=papka24
+POSTGRES_DB=papka24
+
+RECAPTCHA_CLIENT=
+RECAPTCHA_SERVER=
+```
+
 * Run cluster './up.sh' ('./up.sh -d' detached mode)

@@ -23,16 +23,16 @@ then
   gradle shadowJar
   popd
 
-  rm -R ./devops/static/dist
-  mkdir ./devops/static/dist
-  cp -R ./static-page/papka/* ./devops/static/dist
+  # prepare artifacts to deploy
+  images=(static-apache static-nginx server postgres)
+  for i in "${images[@]}"; do
+    rm -R ./devops/$i/dist
+    mkdir ./devops/$i/dist
+  done
 
-  rm -R ./devops/server/dist
-  mkdir ./devops/server/dist
+  cp -R ./static-page/papka/* ./devops/static-apache/dist
+  cp -R ./static-page/papka/* ./devops/static-nginx/dist
   cp ./server/build/libs/papka-24.jar ./devops/server/dist
-
-  rm -R ./devops/postgres/dist
-  mkdir ./devops/postgres/dist
   cp ./server/build/resources/main/sql/CreateDB.sql ./devops/postgres/dist
 
   sudo docker-compose up $1
