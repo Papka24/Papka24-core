@@ -21,3 +21,4 @@ hs_err_pid*
 /static-page/node_modules/
 
 .env
+/usr/cert

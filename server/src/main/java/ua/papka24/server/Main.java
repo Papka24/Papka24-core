@@ -212,7 +212,7 @@ public class Main {
             rc.getFeatures().put(ResourceConfig.FEATURE_DISABLE_WADL, true);
 
             rc.getContainerRequestFilters().add(InfoFilter.class);
-
+            //
             server = GrizzlyServerFactory.createHttpServer(UriBuilder.fromUri("http://" + property.getProperty("server.localDomain", "localhost") + property.getProperty("server.path")).port(Integer.valueOf(property.getProperty("server.port", "9999"))).build(), rc);
             NetworkListener listener = server.getListeners().iterator().next();
             listener.createManagementObject();
