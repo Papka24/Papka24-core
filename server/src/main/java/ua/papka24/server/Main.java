@@ -79,7 +79,6 @@ public class Main {
     public static String passwordSalt;
     public static Queue<File> renderQueue = new ConcurrentLinkedQueue<>();
     public static CustomPriorityQuery emailQueue;
-    public static ConcurrentHashMap<String,String> cloudSignCheckQueue = new ConcurrentHashMap<>();
     private static Timer timer = new Timer();
 
     public static String certificateCacheDir;
@@ -90,7 +89,6 @@ public class Main {
     public static String DOMAIN = "";
 
     public static Main main;
-    public static String cloudConfigPath;
     public static GoogleAuthenticatorConfig gaConfig = (new GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder()).setWindowSize(5).build();
     public static GoogleAuthenticator gAuth = new GoogleAuthenticator(Main.gaConfig);
 

@@ -82,7 +82,7 @@ public interface RedisDAOManager {
 
     final class DefaultSettings{
 
-        private static final String DEFAULT_SESSION_STORAGE = Main.property.getProperty("defaultSessionStorage");
+        private static final String DEFAULT_SESSION_STORAGE = Main.property.getProperty("defaultSessionStorage", "redis");
 
     }
     ExternalSignRequest getExternalSignRequest(String uuid);
