@@ -7,11 +7,15 @@ then
   . $envFile
 
   sed -i "/server.domain=/ s/=.*/=$SERVER_DOMAIN/" ./server/src/main/resources/config.properties
-  sed -i "/server.localDomain=/ s/=.*/=$SERVER_LOCAL_DOMAIN/" ./server/src/main/resources/config.properties
+  sed -i "/server.localDomain=/ s/=.*/=server/" ./server/src/main/resources/config.properties
   sed -i "/jdbc.database=/ s/=.*/=$POSTGRES_DB/" ./server/src/main/resources/config.properties
   sed -i "/jdbc.username=/ s/=.*/=$POSTGRES_USER/" ./server/src/main/resources/config.properties
   sed -i "/jdbc.password=/ s/=.*/=$POSTGRES_PASSWORD/" ./server/src/main/resources/config.properties
   sed -i "/recaptcha.secret=/ s/=.*/=$RECAPTCHA_SERVER/" ./server/src/main/resources/config.properties
+
+  sed -i "/emailServer.path=/ s/=.*/=mail/" ./server/src/main/resources/config.properties
+  sed -i "/emailServer.username=/ s/=.*/=$EMAIL_SERVER_USER/" ./server/src/main/resources/config.properties
+  sed -i "/emailServer.password=/ s/=.*/=$EMAIL_SERVER_PASSWORD/" ./server/src/main/resources/config.properties
 
   sed -i "/var reCaptcha=/ s/=.*/=\"$RECAPTCHA_CLIENT\";/" ./static-page/src/js/actionLogin.js
 
@@ -41,7 +45,8 @@ then
   sed -i "s/SERVER_DOMAIN_MOBILE/$SERVER_DOMAIN_MOBILE/" ./devops/static-nginx/default.conf
   sed -i "s/SERVER_DOMAIN_ALIAS/$SERVER_DOMAIN_ALIAS/" ./devops/static-nginx/default.conf
   sed -i "s/SERVER_DOMAIN/$SERVER_DOMAIN/" ./devops/static-nginx/default.conf
-  sed -i "s/SERVER_LOCAL_DOMAIN/$SERVER_LOCAL_DOMAIN/" ./devops/static-nginx/default.conf
+  sed -i "s/SERVER_LOCAL_DOMAIN/server/" ./devops/static-nginx/default.conf
+
 
   # java backend
   cp ./server/build/libs/papka-24.jar ./devops/server/dist
