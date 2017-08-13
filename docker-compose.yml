@@ -30,3 +30,9 @@ services:
   scylla:
     build:
       context: ./devops/scylla
+  mail:
+    build:
+      context: ./devops/mail
+    environment:
+      - maildomain=${EMAIL_SERVER_DOMAIN}
+      - smtp_user=${EMAIL_SERVER_USER}:${EMAIL_SERVER_PASSWORD}
