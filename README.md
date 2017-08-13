@@ -8,7 +8,6 @@
 * Copy **.env.template** to **.env** and update it according to your environment
 ```
 SERVER_DOMAIN=<ip adress>|<FQDN>
-SERVER_LOCAL_DOMAIN=server
 SERVER_DOMAIN_ALIAS=www.<FQDN>
 SERVER_DOMAIN_MOBILE=m.<FQDN>
 
@@ -20,6 +19,10 @@ POSTGRES_DB=papka24
 
 RECAPTCHA_CLIENT=
 RECAPTCHA_SERVER=
+
+EMAIL_SERVER_DOMAIN=mail.example.com
+EMAIL_SERVER_USER=user
+EMAIL_SERVER_PASSWORD=password
 ```
 ### Register reCAPTCHA
 * Register your domain using https://www.google.com/recaptcha/admin
