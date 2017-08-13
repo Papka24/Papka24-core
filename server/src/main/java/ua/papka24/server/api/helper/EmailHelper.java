@@ -87,7 +87,7 @@ public class EmailHelper {
 
     private static Pattern email_pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     private static IvParameterSpec iv = new IvParameterSpec(new byte[]{0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07});
-    private static SecretKeySpec skeySpec = new SecretKeySpec(Main.property.getProperty("secret_key_spec").getBytes(), "AES");
+    private static SecretKeySpec skeySpec = new SecretKeySpec(Main.property.getProperty("secret_key_spec", "SecretKeyForEmai").getBytes(), "AES");
 
     public static boolean validate(final String email) {
         return email_pattern.matcher(email).matches();
