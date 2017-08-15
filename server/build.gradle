@@ -162,7 +162,8 @@ dependencies {
     compile "org.apache.tika:tika-core:1.14"
     compile 'org.apache.pdfbox:pdfbox:2.0.5'
     compile 'org.apache.pdfbox:fontbox:2.0.5'
-    compile 'org.bouncycastle:bcprov-jdk15on:1.56'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.57'
+    compile 'org.bouncycastle:bcpkix-jdk15on:1.57'
     compile 'org.apache.commons:commons-email:1.4'
     compile 'net.jodah:expiringmap:0.5.8'
     compile 'com.zaxxer:HikariCP:2.6.1'
