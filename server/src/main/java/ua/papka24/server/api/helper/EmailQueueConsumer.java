@@ -32,14 +32,12 @@
 
 package ua.papka24.server.api.helper;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.sun.mail.smtp.SMTPTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.papka24.server.Main;
 import ua.papka24.server.api.DTO.EmailDTO;
 import ua.papka24.server.db.redis.email.CustomPriorityQuery;
-import ua.papka24.server.Main;
 import ua.papka24.server.utils.logger.Event;
 
 import javax.activation.DataHandler;
@@ -51,11 +49,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.util.*;
+import java.util.Date;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 /**
  * Class for send emails.
@@ -63,27 +59,25 @@ import java.util.stream.Collectors;
 public class EmailQueueConsumer implements Runnable {
     public static final Logger log = LoggerFactory.getLogger("EmailQueue");
     private static final String contentType = "text/html; charset=utf-8";
-    private Properties mainServerProp;
-    private Properties currentProperties;
+    private Properties prop;
     private CustomPriorityQuery queue;
     private final String from;
-    private Lock lock = new ReentrantLock();
     private boolean emailEnabled = true;
-    private final boolean serviceEnabled;
+    private final boolean serviceSendEnabled;
 
     public EmailQueueConsumer(CustomPriorityQuery queue, String emailServer, int emailPort, String emailUser, String emailPassword) {
         this.queue = queue;
         this.from = "webmaster@" + Main.DOMAIN;
         if(emailServer!=null && !emailServer.trim().isEmpty()) {
-            this.mainServerProp = createEmailServerProp(emailServer, emailUser, emailPassword, emailPort);
+            this.prop = createEmailServerProp(emailServer, emailUser, emailPassword, emailPort);
         }else{
             emailEnabled = false;
         }
-        serviceEnabled = Main.property.getProperty("emailServer.enable", "true").equals("true");
+        serviceSendEnabled = Main.property.getProperty("emailServer.send.enabled", "true").equals("true");
     }
 
     private Properties createEmailServerProp(String emailServer, String emailUser, String emailPassword, int emailPort) {
-        Properties prop = new Properties();
+        prop = new Properties();
         boolean auth = (emailUser != null && emailPassword != null);
         if(emailUser!=null){
             prop.setProperty("email.user",emailUser);
@@ -98,36 +92,13 @@ public class EmailQueueConsumer implements Runnable {
         return prop;
     }
 
-    private List<Properties> createReserveServerProp(){
-        List<Properties> reserveEmailServers = new ArrayList<>();
-        String resServ = Main.property.getProperty("emailServer.reserve");
-        if (resServ != null) {
-            List<EmailServer> reserveServers = new Gson().fromJson(resServ, new TypeToken<List<EmailServer>>(){}.getType());
-            reserveEmailServers.addAll(reserveServers.stream().map(server -> createEmailServerProp(server.path, server.user, server.password, server.port)).collect(Collectors.toList()));
-        }
-        return reserveEmailServers;
-    }
-
-    private Properties getCurrentProperties(){
-        lock.lock();
-        try {
-            if (currentProperties == null) {
-                currentProperties = mainServerProp;
-            }
-        }finally {
-            lock.unlock();
-        }
-        return currentProperties;
-    }
-
     private void sendEmails(){
         try {
-            Properties prop = getCurrentProperties();
             Session session = Session.getInstance(prop, null);
             EmailDTO emailDTO = null;
             if(!queue.isEmpty()) {
                 SMTPTransport transport = (SMTPTransport) session.getTransport("smtp");
-                if(prop.get("mail.smtp.auth").equals("true")) {
+                if(prop.get("mail.smtp.auth").equals(true)) {
                     transport.setRequireStartTLS(true);
                     transport.setStartTLS(true);
                 }
@@ -204,7 +175,7 @@ public class EmailQueueConsumer implements Runnable {
 
     @Override
     public void run() {
-        while(emailEnabled && this.serviceEnabled) {
+        while(emailEnabled && this.serviceSendEnabled) {
             try{
                 if (!queue.isEmpty()) {
                     sendEmails();
@@ -214,12 +185,5 @@ public class EmailQueueConsumer implements Runnable {
                 log.error("Error start queue", e);
             }
         }
-    }
-
-    private static class EmailServer {
-        String user;
-        String password;
-        String path;
-        int port;
     }
 }

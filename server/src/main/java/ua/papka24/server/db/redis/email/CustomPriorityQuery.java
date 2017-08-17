@@ -38,7 +38,7 @@ import ua.papka24.server.api.DTO.EmailDTO;
 public interface CustomPriorityQuery {
 
     static CustomPriorityQuery getQuery(boolean real){
-        if(Main.property.getProperty("emailServer.enable", "true").equals("true")){
+        if(Main.property.getProperty("emailServer.send.enabled", "true").equals("true")){
             if(real){
                 return new EmailPriorityQuery();
             }else{
