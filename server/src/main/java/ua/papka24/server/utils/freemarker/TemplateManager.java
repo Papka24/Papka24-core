@@ -104,31 +104,6 @@ public class TemplateManager {
     }
 
 
-    public String getMonitorInfo() throws IOException, TemplateException {
-        Template monit = cfg.getTemplate("monit.ftl");
-        StringWriter out = new StringWriter();
-        Map<String,Object> prop = new HashMap<>();
-        prop.put("main",Main.property);
-        prop.put("jdbcActive", DAO.isActive());
-
-        prop.put("emailQuerySize", Main.emailQueue.size());
-        prop.put("emailRedisQuery", EmailQueryRedisManager.getRedisEmailQuerySize());
-
-        //redis
-        prop.put("redisEmail", Main.property.getProperty("redis.email","yes"));
-        prop.put("redisActive", RedisCluster.isActive());
-
-        prop.put("subscribeService", Main.property.getProperty("subscribe.service","N/A"));
-        prop.put("notifyCompletedTaskCount", EventsQueryProcessor.getInstance().getCompletedTaskCount());
-        prop.put("notifyNotifyQueue", EventsQueryProcessor.getInstance().getNotifyQueueSize());
-        prop.put("scyllaActive", ScyllaCluster.isActive());
-
-        monit.process(prop, out);
-        String result = out.toString();
-        out.close();
-        return result;
-    }
-
     private String processTemplate(Template template, Map<String,Object> prop) throws IOException, TemplateException {
         StringWriter out = new StringWriter();
         template.process(prop, out);

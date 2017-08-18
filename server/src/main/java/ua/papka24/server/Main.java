@@ -66,7 +66,6 @@ import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -197,9 +196,9 @@ public class Main {
             org.glassfish.grizzly.http.server.HttpServer server;
             HttpServer fileServer;
 
-            boolean needUseRedisEmail = property.getProperty("redis.email","true").equals("true");
+            boolean emailServerEnabled = property.getProperty("emailServer.enabled","true").equals("true");
             new Thread(new PDFRenderQueueConsumer(renderQueue)).start();
-            new Thread(new EmailQueueConsumer(emailQueue = CustomPriorityQuery.getQuery(needUseRedisEmail), property.getProperty("emailServer.path", "localhost"),
+            new Thread(new EmailQueueConsumer(emailQueue = CustomPriorityQuery.getQuery(emailServerEnabled), property.getProperty("emailServer.path", "localhost"),
                     Integer.parseInt(property.getProperty("emailServer.port", "25")),
                     property.getProperty("emailServer.username", null),
                     property.getProperty("emailServer.password", null))).start();

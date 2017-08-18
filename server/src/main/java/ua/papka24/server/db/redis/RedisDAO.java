@@ -74,7 +74,7 @@ class RedisDAO extends RedisCluster implements RedisDAOManager {
                 log.error("could not start session change listener",ex);
             }
         }).start();
-        if( Main.property.getProperty("emailServer.enable", "true").equals("true")) {
+        if( Main.property.getProperty("emailServer.send.enabled", "true").equals("true")) {
             new Thread(() -> {
                 try {
                     ChatMessageExpiringListener chatMessageExpiringListener = new ChatMessageExpiringListener();
