@@ -13,11 +13,13 @@ then
   sed -i "/jdbc.password=/ s/=.*/=$POSTGRES_PASSWORD/" ./server/src/main/resources/config.properties
   sed -i "/recaptcha.secret=/ s/=.*/=$RECAPTCHA_SERVER/" ./server/src/main/resources/config.properties
 
-  sed -i "/emailServer.path=/ s/=.*/=mail/" ./server/src/main/resources/config.properties
+  sed -i "/emailServer.path=/ s/=.*/=$EMAIL_SERVER_DOMAIN/" ./server/src/main/resources/config.properties
+  sed -i "/emailServer.port=/ s/=.*/=$EMAIL_SERVER_PORT/" ./server/src/main/resources/config.properties
   sed -i "/emailServer.username=/ s/=.*/=$EMAIL_SERVER_USER/" ./server/src/main/resources/config.properties
   sed -i "/emailServer.password=/ s/=.*/=$EMAIL_SERVER_PASSWORD/" ./server/src/main/resources/config.properties
 
-  sed -i "/var reCaptcha=/ s/=.*/=\"$RECAPTCHA_CLIENT\";/" ./static-page/src/js/actionLogin.js
+  sed -i "/sitekey:/ s/:.*/:\"$RECAPTCHA_CLIENT\",/" ./static-page/src/js/actionLogin.js
+
 
   pushd static-page
   gradle build

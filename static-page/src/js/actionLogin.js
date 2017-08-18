@@ -138,9 +138,8 @@ var actionLogin = {
         if (typeof actionLogin.grecaptcha != "undefined" && actionLogin.grecaptcha != null) {
             grecaptcha.reset(actionLogin.grecaptcha);
         } else {
-            var reCaptcha="6Lf6eCcUAAAAAAjxthnI5pwRnYGCP9i_Z-t3cEs7";
             actionLogin.grecaptcha = grecaptcha.render("captcha", {
-                sitekey: reCaptcha,
+                sitekey:"6LcoLS0UAAAAAKJPMME92Y55ZbnT4rAglZInO57W",
                 callback: function () {
                     if (typeof actionLogin.recaptchaCallback == "function") {
                         actionLogin.recaptchaCallback();
