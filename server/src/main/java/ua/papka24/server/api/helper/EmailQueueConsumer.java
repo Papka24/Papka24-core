@@ -49,7 +49,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.sql.rowset.CachedRowSet;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +64,7 @@ public class EmailQueueConsumer implements Runnable {
     private final String from;
     private boolean emailEnabled = true;
     private final boolean serviceSendEnabled;
+    private final boolean startTlsRequired;
 
     public EmailQueueConsumer(CustomPriorityQuery queue, String emailServer, int emailPort, String emailUser, String emailPassword) {
         this.queue = queue;
@@ -75,6 +75,7 @@ public class EmailQueueConsumer implements Runnable {
             emailEnabled = false;
         }
         serviceSendEnabled = Main.property.getProperty("emailServer.send.enabled", "true").equals("true");
+        startTlsRequired = Main.property.getProperty("emailServer.startTLS").equalsIgnoreCase("true");
     }
 
     private Properties createEmailServerProp(String emailServer, String emailUser, String emailPassword, int emailPort) {
@@ -90,6 +91,7 @@ public class EmailQueueConsumer implements Runnable {
         prop.put("mail.smtp.socketFactory.port", emailPort);
         prop.put("mail.smtp.auth", auth);
         prop.put("mail.smtp.port", emailPort);
+        prop.put("mail.smtp.starttls.enable", startTlsRequired);
         return prop;
     }
 
@@ -99,7 +101,7 @@ public class EmailQueueConsumer implements Runnable {
             EmailDTO emailDTO = null;
             if(!queue.isEmpty()) {
                 SMTPTransport transport = (SMTPTransport) session.getTransport("smtp");
-                if(prop.get("mail.smtp.auth").equals(true)) {
+                if(startTlsRequired) {
                     transport.setRequireStartTLS(true);
                     transport.setStartTLS(true);
                 }

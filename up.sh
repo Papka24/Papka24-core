@@ -17,6 +17,7 @@ then
   sed -i "/emailServer.port=/ s/=.*/=$EMAIL_SERVER_PORT/" ./server/src/main/resources/config.properties
   sed -i "/emailServer.username=/ s/=.*/=$EMAIL_SERVER_USER/" ./server/src/main/resources/config.properties
   sed -i "/emailServer.password=/ s/=.*/=$EMAIL_SERVER_PASSWORD/" ./server/src/main/resources/config.properties
+  sed -i "/emailServer.startTLS=/ s/=.*/=$EMAIL_SERVER_STARTRLS/" ./server/src/main/resources/config.properties
 
   sed -i "/sitekey:/ s/:.*/:\"$RECAPTCHA_CLIENT\",/" ./static-page/src/js/actionLogin.js
 
