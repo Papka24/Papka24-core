@@ -15,8 +15,6 @@ services:
       - postgres
       - redis
       - scylla
-    ports:
-      - 7777:7777
   postgres:
     build:
       context: ./devops/postgres
