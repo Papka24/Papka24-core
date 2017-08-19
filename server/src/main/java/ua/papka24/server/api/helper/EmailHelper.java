@@ -282,18 +282,12 @@ public class EmailHelper {
     }
 
     public static void sendInviteEmail(String login, String name, String secret) {
-        String message = "Вітаємо, " + name +
-                "!\n\n" +
-                "Останній крок, і Ви потрапите в чарівний світ без паперів :)\n\n Підтвердіть Ваш email, будь ласка, клікнувши на це посилання\n\n" +
-                "https://" + Main.DOMAIN + "/accept#" + secret;
-
-        StringBuilder messageHTML = new StringBuilder("<html><body>Вітаємо, ");
-        messageHTML.append(name);
-        messageHTML.append("!<br><br>");
-        messageHTML.append("Останній крок, і Ви потрапите в чарівний світ без паперів :)<br><br> Підтвердіть Ваш email, будь ласка, клікнувши на це посилання<br><br>");
-        messageHTML.append("<a style='background:#5c9d21; width:200px; text-align:center; display:block; text-decoration:none; padding:10px; color:white; font-weight:bold' href='https://").append(Main.DOMAIN).append("/accept#").append(secret).append("'>Підтвердити</a>");
-        messageHTML.append("</body><html>");
-        Main.emailQueue.add(new EmailDTO(login, login, "Папка24. Підтвердження реєстрації", message, messageHTML.toString(), EmailDTO.Priority.HIGH, EmailDTO.Template.INVITE));
+        try{
+            String htmlMessage = TemplateManager.getInstance().getInviteEmail(name, secret);
+            Main.emailQueue.add(new EmailDTO(login, login, "Папка24. Підтвердження реєстрації", htmlMessage, htmlMessage, EmailDTO.Priority.HIGH, EmailDTO.Template.INVITE));
+        }catch (Exception ex) {
+            log.error("error send invite message", ex);
+        }
     }
 
     public static void sendResetPasswordEmail(String login, String name, String secret) {
