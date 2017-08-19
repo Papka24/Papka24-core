@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 
 public abstract class DAO {
@@ -49,22 +50,29 @@ public abstract class DAO {
     public static long NULL_ID = -1;
 
     static {
-        try {
-            Class.forName(Main.property.getProperty("jdbc.driver", "org.postgresql.Driver"));
-            HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(Main.property.getProperty("jdbc.url")+Main.property.getProperty("jdbc.database"));
-            config.setUsername(Main.property.getProperty("jdbc.username"));
-            config.setPassword(Main.property.getProperty("jdbc.password"));
-            config.addDataSourceProperty("cachePrepStmts", "true");
-            config.addDataSourceProperty("prepStmtCacheSize", "250");
-            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            config.addDataSourceProperty("leakDetectionThreshold", "4000");
-            config.addDataSourceProperty("assumeMinServerVersion", "9.0");
-            config.setAutoCommit(false);
-            config.setMaximumPoolSize(Integer.valueOf(Main.property.getProperty("jdbc.maxPoolSize", "10")));
-            connectionPool = new HikariDataSource(config);
-        } catch (Exception e) {
-            log.error("error creating sql pool:", e.getMessage());
+        boolean stop = false;
+        for(int i=0; i < 3 & !stop; i++) {
+            try {
+                Class.forName(Main.property.getProperty("jdbc.driver", "org.postgresql.Driver"));
+                HikariConfig config = new HikariConfig();
+                config.setJdbcUrl(Main.property.getProperty("jdbc.url") + Main.property.getProperty("jdbc.database"));
+                config.setUsername(Main.property.getProperty("jdbc.username"));
+                config.setPassword(Main.property.getProperty("jdbc.password"));
+                config.addDataSourceProperty("cachePrepStmts", "true");
+                config.addDataSourceProperty("prepStmtCacheSize", "250");
+                config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+                config.addDataSourceProperty("leakDetectionThreshold", "4000");
+                config.addDataSourceProperty("assumeMinServerVersion", "9.0");
+                config.setAutoCommit(false);
+                config.setMaximumPoolSize(Integer.valueOf(Main.property.getProperty("jdbc.maxPoolSize", "10")));
+                connectionPool = new HikariDataSource(config);
+                stop = true;
+            } catch (Exception e) {
+                log.error("error creating sql pool:", e.getMessage());
+                try {
+                    TimeUnit.SECONDS.sleep(1 + (i * 10));
+                } catch (InterruptedException ignored) {}
+            }
         }
     }
 
