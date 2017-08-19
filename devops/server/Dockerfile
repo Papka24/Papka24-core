@@ -6,5 +6,9 @@ COPY ./dist/email/ /var/www/mail_template/
 RUN mkdir /home/logic
 COPY ./dist/logic /home/logic
 
+EXPOSE 7777
+EXPOSE 8888
+EXPOSE 9999
+
 COPY ./process.sh /home/process.sh
 CMD ["/home/process.sh"]
