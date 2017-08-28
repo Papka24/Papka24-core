@@ -31,6 +31,15 @@ services:
   mail:
     build:
       context: ./devops/mail
+    networks:
+      default:
+        aliases:
+          - ${EMAIL_SERVER_ALIAS}
+    ports:
+      - "25:25"
     environment:
       - maildomain=${EMAIL_SERVER_DOMAIN}
       - smtp_user=${EMAIL_SERVER_USER}:${EMAIL_SERVER_PASSWORD}
+
+networks:
+  default:

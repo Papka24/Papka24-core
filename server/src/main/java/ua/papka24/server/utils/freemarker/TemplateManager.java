@@ -120,6 +120,15 @@ public class TemplateManager {
         return processTemplate(template,prop);
     }
 
+    public String getInviteEmail(String name, String secret) throws IOException, TemplateException {
+        Template template = cfg.getTemplate("/email/invite.ftl");
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("mainDomain",Main.DOMAIN);
+        prop.put("name",name);
+        prop.put("secret", secret);
+        return processTemplate(template,prop);
+    }
+
     public String getGroupInviteEmail(UserDTO user,  boolean register, String secret, long role) throws IOException, TemplateException {
         Template groupInvite;
         if(role==EmployeeDTO.ROLE_ADMIN){
