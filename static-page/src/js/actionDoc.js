@@ -330,10 +330,12 @@ actionDoc = {
             buildNode("DIV", {className: "header"}, "Мають доступ <i style='float:right;margin:8px;cursor: pointer' class='fa fa-caret-down'></i>"),
             buildNode("DIV", {className: "shared content"})
         ]));
-        docInfoNode.appendChild(buildNode("DIV", {className: "list documentChat inactive"}, [
-            buildNode("DIV", {className: "header"}, "Обговорення документу<i style='float:right;margin:8px;cursor: pointer' class='fa fa-caret-down'></i>"),
-            chatNode
-        ]));
+        if (userConfig.enableChat) {
+            docInfoNode.appendChild(buildNode("DIV", {className: "list documentChat inactive"}, [
+                buildNode("DIV", {className: "header"}, "Обговорення документу<i style='float:right;margin:8px;cursor: pointer' class='fa fa-caret-down'></i>"),
+                chatNode
+            ]));
+        }
 
         byId("contentBlock").innerHTML = "";
         byId("contentBlock").appendChild(buildNode("DIV", {id: "openDoc"}, [docMenuNode, iFrameNode, docInfoNode]));
