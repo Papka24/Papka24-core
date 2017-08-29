@@ -114,7 +114,7 @@ task dist(){
             into distPath
         }
 //        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka-${version}.jar"), link: "${distPath}papka.jar")
-        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka24.jar"), link: "${distPath}papka.jar")
+        ant.symlink(failonerror:false, overwrite: true, resource: ("${distPath}papka-24.jar"), link: "${distPath}papka.jar")
     }
 }
 
