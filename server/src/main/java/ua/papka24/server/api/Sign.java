@@ -118,7 +118,7 @@ public class Sign extends REST {
             for (Long docId : document.keySet()) {
                 ArrayList<String> resultSigns = ResourceDAO.getInstance().addSign(s.getUser(), docId, document.get(docId));
                 if (resultSigns != null) {
-                    log.info("request to add sign:{}", docId, Event.ADD_SIGN);
+                    log.info("request to add new {} sign:{}", resultSigns.size(), docId, Event.ADD_SIGN);
                     ArrayList<String> notifierSigns = new ArrayList<>();
                     for (String sign : resultSigns) {
                         if (document.get(docId).contains(sign)) {
