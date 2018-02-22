@@ -1311,7 +1311,7 @@ public class ResourceDAO extends DAO {
     }
 
     public ArrayList<String> addSign(UserDTO user, Long id, List<String> sign) {
-        log.info("addSign: login:{}:{}", user.getLogin(), id);
+        log.info("addSign: login:{}:{}-{}", user.getLogin(), id, sign.size());
         Connection c = getConnection();
         assert c != null;
         String docName;
