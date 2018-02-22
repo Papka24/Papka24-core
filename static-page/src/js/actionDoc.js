@@ -2204,7 +2204,7 @@ actionDoc = {
                             }
                             if (Object.keys(newSigns).length>0) {
                                 var docId = Object.keys(newSigns)[0];
-                                ajax("/api/sign/0", function (listJSON) {
+                                ajax("/api/sign/"+userConfig.docId, function (listJSON) {
                                     listJSON = JSON.parse(listJSON);
                                     var result = {};
                                     if (isArray(listJSON)){
