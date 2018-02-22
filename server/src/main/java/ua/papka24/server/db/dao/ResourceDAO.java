@@ -1358,20 +1358,17 @@ public class ResourceDAO extends DAO {
             HashMap<String,X509Certificate> newSigns = new HashMap<>();
 
             for (String newSign : sign) {
-                //try {
-//                    HashMap<String,X509Certificate> clearedSigns = CryptoManager.getUniqueCms(signs, newSign, Base64.getUrlDecoder().decode(hash));
-//                    log.info("Found {} signs", clearedSigns.size());
-//                    if (clearedSigns!=null) {
-//                        for (String s : clearedSigns.keySet()) {
-//                            newSigns.put(s, clearedSigns.get(s));
-//                        }
-                      //  signs.addAll(clearedSigns.keySet());
-                //TODO: fix it!!!
-                      signs.add(newSign);
-                   // }
-                //} catch (Exception ignored) {
+                try {
+                    HashMap<String,X509Certificate> clearedSigns = CryptoManager.getUniqueCms(signs, newSign, Base64.getUrlDecoder().decode(hash));
+                    if (clearedSigns!=null) {
+                        for (String s : clearedSigns.keySet()) {
+                            newSigns.put(s, clearedSigns.get(s));
+                        }
+                        signs.addAll(clearedSigns.keySet());
+                    }
+                } catch (Exception ignored) {
 
-                //}
+                }
             }
 
             if (newSigns.size() == 0) {
