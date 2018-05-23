@@ -46,6 +46,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
@@ -419,8 +420,7 @@ public class CryptoManager {
                     }
 
                     vi.tspValue = si.getTsp().getTime() / 1000;
-                    //TODO:
-                    vi.tspSignerIdentifier = null;
+                    vi.tspSignerIdentifier = Base64.getEncoder().encodeToString(si.getTspSid());
                 }
 
                 if (si.getSigningTime() != null) {
@@ -429,8 +429,7 @@ public class CryptoManager {
                     vi.signingTimeValue = null;
                 }
 
-                //TODO:
-                vi.signerIdentifier = null;
+                vi.signerIdentifier = Base64.getEncoder().encodeToString(si.getSignerId());
 
                 byte[] signCertificate = si.getCertificateInfo().getEncoded();
                 if (signCertificate != null) {
@@ -474,8 +473,43 @@ public class CryptoManager {
         return viList;
     }
 
-    public static HashMap<String,X509Certificate> getUniqueCms(List<String> oldCmsB64List, String newCmsB64, byte[] digest1)
-            throws Exception {return null;}
+    public static HashMap<String,X509Certificate> getUniqueCms(List<String> oldCmsB64List, String newCmsB64, byte[] digest)
+            throws Exception {
+
+        HashMap<String, X509Certificate> newCmsList = new HashMap<>();
+        List<String> allSidList = new ArrayList<>();
+
+        for (String oldCmsB64 : oldCmsB64List) {
+            List<SignInfo> signInfos = CryptoniteX.cmsVerify(Base64.getDecoder().decode(oldCmsB64));
+            for (SignInfo signInfo : signInfos) {
+                allSidList.add(Base64.getEncoder().encodeToString(signInfo.getSignerId()));
+            }
+        }
+
+        List<byte[]> newCmsBytesList = CryptoniteX.cmsSplit(Base64.getDecoder().decode(newCmsB64));
+        for (byte[] newCmsBytes : newCmsBytesList) {
+            List<SignInfo> signInfos = CryptoniteX.cmsVerify(newCmsBytes);
+
+            if (digest != null && digest.length > 0 && !MessageDigest.isEqual(digest, signInfos.get(0).getHash())) {
+                continue;
+            }
+
+            String newSid = Base64.getEncoder().encodeToString(signInfos.get(0).getSignerId());
+            if (allSidList.stream().filter(sid -> sid.equals(newSid)).count() == 0) {
+                /* Подписи таким ключем еще нет. */
+                newCmsList.put(Base64.getEncoder().encodeToString(newCmsBytes), certBytesToX509(signInfos.get(0).getCertificateInfo().getEncoded()));
+                allSidList.add(newSid);
+            }
+        }
+
+        return newCmsList;
+    }
+
+    private static X509Certificate certBytesToX509(byte[] cert) throws Exception {
+        CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+        InputStream in = new ByteArrayInputStream(cert);
+        return (X509Certificate)certFactory.generateCertificate(in);
+    }
 
     @Deprecated
     public static Map<String, String> getOcspCertMap() {return null;}
