@@ -39,16 +39,11 @@ import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import ua.papka24.server.db.dao.DAO;
-import ua.papka24.server.db.scylla.ScyllaCluster;
-import ua.papka24.server.service.events.main.EventsQueryProcessor;
 import ua.papka24.server.Main;
 import ua.papka24.server.api.DTO.ShareTemplate;
 import ua.papka24.server.db.dto.AnalyticsInfoDTO;
 import ua.papka24.server.db.dto.EmployeeDTO;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.redis.RedisCluster;
-import ua.papka24.server.db.redis.email.EmailQueryRedisManager;
 import ua.papka24.server.service.events.event.EmailEvent;
 
 import java.io.IOException;
@@ -93,7 +88,6 @@ public class TemplateManager {
         cfg.setTemplateLoader(mtl);
         cfg.setLogTemplateExceptions(false);
     }
-
 
     private static class Singleton {
         private static final TemplateManager HOLDER_INSTANCE = new TemplateManager();

@@ -35,7 +35,6 @@ package ua.papka24.server.service.events.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.papka24.server.Main;
-import ua.papka24.server.db.scylla.history.HistoryManager;
 import ua.papka24.server.service.events.event.ResourcesChangeEvent;
 import ua.papka24.server.service.events.main.EventType;
 import ua.papka24.server.service.events.main.data.NotifyResult;
@@ -102,10 +101,6 @@ public class ResourceHistoryLog extends Handler<ResourcesChangeEvent>{
     }
 
     private void saveResourceHistory(long resourceId, String event, String login, String message){
-        try {
-            boolean b = HistoryManager.getInstance().saveResourceHistory(resourceId, event, login, message);
-        } catch (ScyllaInteractionException e) {
-            log.error("error while try to save resource history item", e);
-        }
+
     }
 }

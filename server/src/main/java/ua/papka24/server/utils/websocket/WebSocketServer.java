@@ -44,14 +44,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.papka24.server.Main;
 import ua.papka24.server.api.helper.CompanyHelper;
-import ua.papka24.server.db.dao.DeliveryDAO;
 import ua.papka24.server.db.dao.ResourceDAO;
 import ua.papka24.server.db.dao.UserDAO;
 import ua.papka24.server.db.dto.FilterDTO;
 import ua.papka24.server.db.dto.ResourceDTO;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.scylla.history.HistoryManager;
-import ua.papka24.server.db.scylla.history.model.ResourceDTOHolder;
 import ua.papka24.server.security.Session;
 import ua.papka24.server.security.SessionsPool;
 import ua.papka24.server.service.events.event.ResourcesChangeEvent;
@@ -125,78 +122,10 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
             filter.setPage(request.page);
             filter.setOffset(request.offset);
         }
-        ResourceDTOHolder resourcesHolder = new ResourceDTOHolder();
         long timestamp = System.currentTimeMillis();
-        WebSocketResponse.Method meth;
-        Long companyId = userSession.getUser().getCompanyId();
         WebSocketResponse response = new WebSocketResponse();
         response.timestamp = timestamp;
-        try {
-            if (request.timestamp == null || request.timestamp < (new java.util.Date().getTime() - ONE_WEEK)
-                    || request.timestamp < historyControlTime) {
-                if(request.employee!=null) {
-                    //определяем какой запрос именно пришел
-                    if ("all".equals(request.employee)) {
-                        //запрос на документы группы
-                        try {
-                            resourcesHolder.updatedResources = CompanyHelper.searchInCompany(userSession, companyId);
-                            response.timestamp = null;
-                        } catch (ServerException e) {
-                            log.warn("access error:{}", e.getCode());
-                        }
-                    } else if (!request.employee.equals(userLogin)) {
-                        //запрос на документы участника группы
-                        resourcesHolder.updatedResources = CompanyHelper.search(userSession.getUser(), request.employee, filter);
-                        response.timestamp = null;
-                    } else if (request.employee.equals(userLogin)) {
-                        //запрос на документы пользователя
-                        resourcesHolder.updatedResources = ResourceDAO.getInstance().search(filter, userLogin, null, companyId);
-                    }
-                }else{
-                    resourcesHolder.updatedResources = ResourceDAO.getInstance().search(filter, userLogin, null, companyId);
-                }
-                meth = WebSocketResponse.Method.RESET;
-            } else {
-                resourcesHolder = HistoryManager.getInstance().getEventsInfo(userSession, userLogin, request.timestamp, response.timestamp);
-                meth = WebSocketResponse.Method.UPDATE;
-            }
-        }catch (ReceivingDataException rde){
-            log.warn("error get data:{}",rde.getMessage());
-            resourcesHolder.updatedResources = ResourceDAO.getInstance().search(filter, userLogin, null, companyId);
-            meth = WebSocketResponse.Method.RESET;
-        }catch (Exception ex) {
-            log.error("error get data",ex);
-            resourcesHolder.updatedResources = ResourceDAO.getInstance().search(filter, userLogin, null, companyId);
-            meth = WebSocketResponse.Method.RESET;
-        }
-        if(resourcesHolder == null){
-            resourcesHolder = new ResourceDTOHolder();
-        }
-        if (resourcesHolder.createdResources != null && !resourcesHolder.createdResources.isEmpty()) {
-            response.data = resourcesHolder.createdResources;
-            response.method = WebSocketResponse.Method.CREATE;
-            sendMessage(conn, userLogin, gson.toJson(response));
-        }
-        if (resourcesHolder.updatedResources != null && !resourcesHolder.updatedResources.isEmpty()) {
-            response.data = resourcesHolder.updatedResources;
-            response.method = meth;
-            sendMessage(conn, userLogin, gson.toJson(response));
-        }
-        if (resourcesHolder.deleteResources != null && !resourcesHolder.deleteResources.isEmpty()) {
-            response = new WebSocketResponse();
-            response.resourceId = resourcesHolder.deleteResources.stream().map(ResourceDTO::getId).collect(Collectors.toList());
-            response.data = null;
-            response.timestamp = timestamp;
-            response.method = WebSocketResponse.Method.DELETE;
-            sendMessage(null, userLogin, gson.toJson(response));
-        }
-        if (resourcesHolder.createdResourcesIsEmpty() && resourcesHolder.updatedResourcesIsEmpty() && resourcesHolder.deleteResourcesIsEmpty()) {
-            response.data = Collections.emptyList();
-            if(request.timestamp != null) {
-                response.status = "OK";
-            }
-            sendMessage(conn, userLogin, gson.toJson(response));
-        }
+        sendMessage(conn, userLogin, gson.toJson(response));
     }
 
     @Override

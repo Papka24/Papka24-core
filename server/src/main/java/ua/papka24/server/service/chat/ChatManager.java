@@ -38,16 +38,11 @@ import ua.papka24.server.db.dao.ResourceDAO;
 import ua.papka24.server.db.redis.RedisDAOManager;
 import ua.papka24.server.service.events.EventManager;
 import ua.papka24.server.service.events.main.data.Notification;
-import ua.papka24.server.utils.exception.ReceivingDataException;
 import ua.papka24.server.db.dto.ChatMessage;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.scylla.chat.ChatDAO;
 import ua.papka24.server.utils.exception.SavingDataException;
 
 import java.util.List;
-import java.util.Objects;
-
-import static ua.papka24.server.db.scylla.chat.ChatDAO.STATUS_DELETE;
 
 
 public class ChatManager {
@@ -65,28 +60,12 @@ public class ChatManager {
     }
 
     public List<ChatMessage> getMessages(UserDTO user, long roomId, Long time){
-        if(!ResourceDAO.getInstance().checkResourceAccess(user.getLogin(), roomId, null)){
-            return null;
-        }
-        try{
-            List<ChatMessage> messages = ChatDAO.getInstance().getMessages(roomId, time);
-            setRoomStatusRead(roomId, user.getLogin());
-            messages.forEach(e-> {
-                if(Objects.equals(STATUS_DELETE, e.getStatus())){
-                    e.deleteText();
-                }
-            });
-            return messages;
-        }catch (Exception ex){
-            log.error("error get chat message, login : {}, resource_id : {}", user.getLogin(), roomId, ex);
-        }
         return null;
     }
 
     public ChatMessage saveMessage(ChatMessage message) throws SavingDataException {
         ChatMessage cm = null;
         if(checkAllowed(message)){
-            cm = ChatDAO.getInstance().saveMessage(message);
             Notification.Builder builder = Notification.builder().chatMessage(message);
             EventManager.getInstance().addNotification(builder.createChatNotification());
             EventManager.getInstance().addNotification(builder.convertChatToResourceChange());
@@ -95,16 +74,7 @@ public class ChatManager {
         return cm;
     }
 
-    public void setRoomStatusRead(Long roomId, String login) throws ReceivingDataException {
-        List<ChatMessage> messages = ChatDAO.getInstance().getMessages(roomId, null);
-        messages.stream().filter(e->!Objects.equals(e.getStatus(), STATUS_DELETE)).forEach(e->{
-            try {
-                ChatDAO.getInstance().changeStatus(roomId, e.time, ChatDAO.STATUS_READ);
-                RedisDAOManager.getInstance().checkChatMessage(roomId, login);
-            }catch (Exception ex){
-                log.error("cant change status for some messages", ex);
-            }
-        });
+    public void setRoomStatusRead(Long roomId, String login) {
     }
 
     private boolean checkAllowed(ChatMessage message){
@@ -115,10 +85,7 @@ public class ChatManager {
         return ResourceDAO.getInstance().checkResourceAccess(login, roomId, null);
     }
 
-    public void deleteMessage(String login, Long roomId, Long time) throws SavingDataException {
+    public void deleteMessage(String login, Long roomId, Long time) {
         //проверка что у автора есть права
-        if(checkAllowed(login, roomId)){
-            ChatDAO.getInstance().deleteMessage(roomId, time);
-        }
     }
 }
