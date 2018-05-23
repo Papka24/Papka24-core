@@ -65,7 +65,7 @@ idea {
 project.ext.set("jerseyVersion","1.19.3")
 project.ext.set("slf4jVersion","1.7.25")
 project.ext.set("logbackVersion","1.2.2")
-project.ext.set("postgresqlJDBCVersion","42.0.0")
+project.ext.set("postgresqlJDBCVersion","42.2.2")
 project.ext.set("luceneVersion","6.3.0")
 project.ext.set("distPath","/var/www/")
 project.ext.set("asyncHttpClientVersion","1.9.40")
