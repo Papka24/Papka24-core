@@ -39,7 +39,6 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import ua.papka24.server.db.scylla.profile.ProfilerDAO;
 import ua.papka24.server.security.Session;
 import ua.papka24.server.security.SessionsPool;
 
@@ -73,18 +72,12 @@ public class InfoFilter  implements ContainerRequestFilter {
                 }
 
             }
-            String requestBody = "";
             MDC.put("request", request.getPath());
             if (!request.getPath().equals("login") && sessionId != null) {
                 MDC.put("message", readBody(request));
             }
             if(realIp!=null){
                 MDC.put("real_ip",realIp);
-            }
-            try {
-                ProfilerDAO.getInstance().saveRequestLog(System.currentTimeMillis(), login, requestBody, request.getPath());
-            }catch (Exception ex){
-                ex.printStackTrace();
             }
         }catch (Exception ex){
             log.error("error in filter",ex);

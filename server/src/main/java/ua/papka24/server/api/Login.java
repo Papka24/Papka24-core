@@ -43,13 +43,10 @@ import ua.papka24.server.api.DTO.LoginDataDTO;
 import ua.papka24.server.api.DTO.UserDescriptionDTO;
 import ua.papka24.server.api.DTO.UserInfoDTO;
 import ua.papka24.server.db.redis.RedisDAOManager;
-import ua.papka24.server.service.events.EventManager;
-import ua.papka24.server.service.events.main.data.Notification;
 import ua.papka24.server.Main;
 import ua.papka24.server.db.dao.SpamDAO;
 import ua.papka24.server.db.dao.UserDAO;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.scylla.Analytics;
 import ua.papka24.server.security.Session;
 import ua.papka24.server.security.SessionsPool;
 import ua.papka24.server.utils.logger.Event;
@@ -198,7 +195,6 @@ public class Login extends REST {
             }
             Session session = SessionsPool.openSession(user, frontVersion == null ? Boolean.TRUE : Boolean.FALSE);
             if (session == null) {
-                Analytics.getInstance().saveEvent(Analytics.Event.login, new Date(), user.getLogin(), frontVersion == null ? "API" : frontVersion, "unsuccessful");
                 log.info("login unsuccessful:{}", data.getLogin());
                 loginsAttempt.put(user.getLogin(), attempt);
                 return ERROR_SERVER;
@@ -208,7 +204,6 @@ public class Login extends REST {
                     loginsAttempt.remove(user.getLogin());
                 }
                 UserInfoDTO userInfo = new UserInfoDTO(session.getUser(), session.getSessionId(), (frontVersion!=null?UserDAO.getInstance().getFriends(session.getUser()):null));
-                Analytics.getInstance().saveEvent(Analytics.Event.login, new Date(), user.getLogin(), frontVersion==null?"API":frontVersion, "successful");
                 RedisDAOManager.getInstance().clearLoginAttempt(user.getLogin());
                 return Response.ok(UserInfoDTO.gson.toJson(userInfo)).build();
             }

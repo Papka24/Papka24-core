@@ -39,7 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.papka24.server.db.dao.ResourceDAO;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.scylla.Analytics;
 import ua.papka24.server.security.Session;
 import ua.papka24.server.security.SessionsPool;
 import ua.papka24.server.service.events.EventManager;
@@ -126,14 +125,11 @@ public class Sign extends REST {
                         }
                     }
                     if (notifierSigns.size() > 0) {
-                        Analytics.getInstance().saveEvent(Analytics.Event.sign, new Date(), s.getUser().getLogin(), frontVersion, "successful:" + notifierSigns.size());
                         ResourceChangeEvent noti = Notification.builder().eventType(EventType.SIGN).eventData(mainGson.toJson(notifierSigns, new TypeToken<List<String>>() {
                         }.getType())).userLogin(s.getUser().getLogin()).id(docId).createResourceChangeNotification();
                         EventManager.getInstance().addNotification(noti);
                         ResourcesChangeEvent wssNotification = Notification.builder().eventType(EventType.SIGN).userLogin(s.getUser().getLogin()).id(docId).createWSSNotification();
                         EventManager.getInstance().addNotification(wssNotification);
-                    } else {
-                        Analytics.getInstance().saveEvent(Analytics.Event.sign, new Date(), s.getUser().getLogin(), frontVersion, "unsuccessful");
                     }
                     log.info("sign added:{}", docId, Event.ADD_SIGN);
                     results.put(docId, resultSigns);

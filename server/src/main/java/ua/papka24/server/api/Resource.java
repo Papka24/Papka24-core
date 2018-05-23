@@ -45,8 +45,6 @@ import ua.papka24.server.db.dao.ResourceDAO;
 import ua.papka24.server.db.dto.FilterDTO;
 import ua.papka24.server.db.dto.ResourceDTO;
 import ua.papka24.server.db.dto.UserDTO;
-import ua.papka24.server.db.scylla.history.HistoryManager;
-import ua.papka24.server.db.scylla.history.model.ResourceDTOHolder;
 import ua.papka24.server.security.CryptoManager;
 import ua.papka24.server.security.Session;
 import ua.papka24.server.security.SessionsPool;
@@ -105,35 +103,6 @@ public class Resource extends REST {
                 return ERROR_NOT_FOUND;
             }
             return Response.ok(Main.gson.toJson(result, itemsListType)).build();
-        }
-    }
-
-    @GET
-    @Path("/delta/{timestamp}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getDelta(@HeaderParam("sessionid") String sessionId, @PathParam("timestamp") Long timestamp){
-        Session session = SessionsPool.find(sessionId);
-        if (session == null) {
-            return ERROR_FORBIDDEN;
-        } else {
-            DeltaHttpResponse response = new DeltaHttpResponse();
-            response.timestamp = new java.util.Date().getTime();
-            String login = session.getUser().getLogin();
-            Long companyId = session.getUser().getCompanyId();
-            try {
-                if (timestamp != null && (timestamp >= (new java.util.Date().getTime() - DateTimeUtils.ONE_WEEK) && timestamp > historyControlTime)) {
-                    ResourceDTOHolder eventsInfo = HistoryManager.getInstance().getEventsInfo(session, login, timestamp);
-                    response.create = eventsInfo.createdResources;
-                    response.update = eventsInfo.updatedResources;
-                    response.delete = eventsInfo.deleteResources;
-                }else{
-                    response.reset = ResourceDAO.getInstance().search(null, login, null, companyId);
-                }
-            }catch (Exception ex){
-                response.reset = ResourceDAO.getInstance().search(null, login, null, companyId);
-                log.error("error get delta", ex);
-            }
-            return Response.ok().entity(Main.gson.toJson(response)).build();
         }
     }
 

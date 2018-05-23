@@ -42,11 +42,6 @@
 			<pattern>%date{yyMMdd-HH:mm:ss.SSS} [%c{1}:%L] %m%n</pattern>
 		</encoder>
 	</appender>
-	<appender name="SCYLLA" class="ua.papka24.server.utils.logger.ScyllaAppender">
-		<scyllaPath>localhost</scyllaPath>
-		<scyllaKeyspace>papka24</scyllaKeyspace>
-		<scyllaEnable>true</scyllaEnable>
-	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>papka.log.%d{yyyy-MM-dd}</file>

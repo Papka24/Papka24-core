@@ -47,7 +47,6 @@ import ua.papka24.server.db.dto.ResourceDTO;
 import ua.papka24.server.security.*;
 import ua.papka24.server.Main;
 import ua.papka24.server.api.helper.BillingHelper;
-import ua.papka24.server.db.scylla.Analytics;
 import ua.papka24.server.utils.logger.Event;
 
 import javax.imageio.ImageIO;
@@ -216,7 +215,6 @@ public class Upload implements HttpHandler {
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
-                Analytics.getInstance().saveEvent(Analytics.Event.upload, new Date(), session.getUser().getLogin(), frontVersion, "unsuccessful");
             }
         } catch (FileNotFoundException e) {
             Main.log.error(e.toString());
@@ -225,7 +223,6 @@ public class Upload implements HttpHandler {
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
-            Analytics.getInstance().saveEvent(Analytics.Event.upload, new Date(), session.getUser().getLogin(), frontVersion, "unsuccessful");
         } finally {
             if (fos != null) fos.close();
         }
@@ -281,7 +278,6 @@ public class Upload implements HttpHandler {
                 OutputStream os = t.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
-                Analytics.getInstance().saveEvent(Analytics.Event.upload, new Date(), session.getUser().getLogin(), frontVersion, "unsuccessful");
                 return;
             }
 
@@ -301,7 +297,6 @@ public class Upload implements HttpHandler {
             ResourceDTO oldRes = ResourceDAO.getInstance().copy(newName, fileName, session.getUser(), cmsSignsWithoutData, path, StringUtils.isEmpty(frontVersion));
             if (oldRes != null) {
                 log.info("upload:resource found by hash:{}", oldRes);
-                Analytics.getInstance().saveEvent(Analytics.Event.upload, new Date(), session.getUser().getLogin(), frontVersion, "successful");
                 Files.delete(uploadedFileLocation.toPath());
                 byte[] response = ResourceDTO.gson.toJson(oldRes).getBytes("UTF-8");
                 t.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
@@ -343,12 +338,7 @@ public class Upload implements HttpHandler {
                 }catch (Exception ex){
                     log.warn("likely broken pipe error: {}", ex.getMessage());
                 }
-                try {
-                    log.info("upload file:{}:{}:{}:{}:res->{}", session.getSessionId(), session.getUser().getLogin(), fileName, size, newResource, Event.ADD_RESOURCE);
-                    Analytics.getInstance().saveEvent(Analytics.Event.upload, new Date(), session.getUser().getLogin(), frontVersion, "successful");
-                } catch (Exception ex) {
-                    log.error("error log upload file", ex);
-                }
+                log.info("upload file:{}:{}:{}:{}:res->{}", session.getSessionId(), session.getUser().getLogin(), fileName, size, newResource, Event.ADD_RESOURCE);
             } catch (IOException e) {
                 log.error("error upload file", e);
                 if (cdnPDFPath.toFile().exists()) {

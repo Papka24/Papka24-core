@@ -37,18 +37,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.papka24.server.db.dao.DiffDAO;
 import ua.papka24.server.db.dao.ResourceDAO;
-import ua.papka24.server.db.dto.ResourceDTO;
-import ua.papka24.server.db.scylla.history.HistoryManager;
 import ua.papka24.server.service.events.event.ResourcesChangeEvent;
 import ua.papka24.server.service.events.main.EventType;
 import ua.papka24.server.service.events.main.data.NotifyResult;
-import ua.papka24.server.utils.exception.NotSatisfiedException;
-import ua.papka24.server.utils.exception.ScyllaInteractionException;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-
 
 public class EventHistoryHandler extends Handler<ResourcesChangeEvent>{
 
@@ -56,7 +49,7 @@ public class EventHistoryHandler extends Handler<ResourcesChangeEvent>{
     private static final Gson gson = new Gson();
 
     @Override
-    public NotifyResult notify(ResourcesChangeEvent notification) throws NotSatisfiedException, InterruptedException, ExecutionException, IOException {
+    public NotifyResult notify(ResourcesChangeEvent notification) {
         List<Long> docsId = notification.getDocID();
 
         long magicFactor = 0;
@@ -64,7 +57,6 @@ public class EventHistoryHandler extends Handler<ResourcesChangeEvent>{
             Set<String> associatedUsersLogins;
             final String[] eventTypeString = {notification.getEventType()};
             //добавляет по мс для того чтобы сохранить в базу ( если будет групповое событие последняя запись перекроет остальные по времени)
-            Date date = new Date(notification.getTime()+(magicFactor++));
             List<DiffDAO.SyncItem> syncItemList = new ArrayList<>();
             EventType eventType = EventType.valueOf(eventTypeString[0]);
             switch (eventType){
@@ -92,46 +84,13 @@ public class EventHistoryHandler extends Handler<ResourcesChangeEvent>{
                     (associatedUsersLogins.isEmpty() && eventType == EventType.DELETE)) {
                 DiffDAO.SyncItem syncItem = new DiffDAO.SyncItem();
                 syncItem.login = notification.getUserLogin();
-                try {
-                    String extra = "";
-                    boolean saveRes = HistoryManager.getInstance().saveEvent(notification.getUserLogin(), date, docId, eventTypeString[0], extra);
-                    boolean fullSaveRes = HistoryManager.getInstance().saveFullEvent(notification.getUserLogin(), date, docId, eventTypeString[0], extra, notification.getUserLogin());
-                    if (saveRes && fullSaveRes) {
-                        syncItem.date = date;
-                    }
-                } catch (ScyllaInteractionException see) {
-                    log.error("error save history event", see);
-                }
                 syncItemList.add(syncItem);
             } else {
                 associatedUsersLogins.forEach(login -> {
                     DiffDAO.SyncItem syncItem = new DiffDAO.SyncItem();
                     syncItem.login = login;
-                    try {
-                        ResourceDTO resourceDTO = ResourceDAO.getInstance().getUserResource(login, docId);
-                        String extra = null;
-                        if (resourceDTO != null) {
-                            extra = gson.toJson(resourceDTO);
-                        } else {
-                            try {
-                                if (eventType == EventType.DELETE || eventType == EventType.DELETE_NOT_OWN) {
-                                    extra = "";
-                                }
-
-                            } catch (Exception ex) {
-                                log.warn("error get event type", ex);
-                            }
-                        }
-                        if(eventType == EventType.SHARED && sharedDestination.contains(login)){
-                            eventTypeString[0] = EventType.CREATE.name();
-                        }
-                        boolean saveRes = HistoryManager.getInstance().saveEvent(login, date, docId, eventTypeString[0], extra);
-                        boolean fullSaveRes = HistoryManager.getInstance().saveFullEvent(login, date, docId, eventTypeString[0], extra, notification.getUserLogin());
-                        if (saveRes && fullSaveRes) {
-                            syncItem.date = date;
-                        }
-                    } catch (ScyllaInteractionException see) {
-                        log.error("error save resource", see);
+                    if(eventType == EventType.SHARED && sharedDestination.contains(login)){
+                        eventTypeString[0] = EventType.CREATE.name();
                     }
                     syncItemList.add(syncItem);
                 });
