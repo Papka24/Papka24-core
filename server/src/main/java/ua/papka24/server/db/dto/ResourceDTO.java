@@ -56,7 +56,7 @@ public class ResourceDTO implements Serializable {
     private final static int UNKNOWN = -1;
 
     public static int detectType(String type){
-        if (type.equals("application/pdf")){
+        if (type.equals("application/pdf") || type.equals("application/pkcs7-signature")){
             return  TYPE_PDF;
         } else if(type.startsWith("image/")){
             return  TYPE_IMG;
