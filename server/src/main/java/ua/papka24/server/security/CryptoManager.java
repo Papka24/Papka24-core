@@ -494,7 +494,7 @@ public class CryptoManager {
         for (byte[] newCmsBytes : newCmsBytesList) {
             List<SignInfo> signInfos = CryptoniteX.cmsVerify(newCmsBytes);
 
-            if (digest != null && digest.length > 0 && !MessageDigest.isEqual(digest, signInfos.get(0).getHash())) {
+            if (digest != null && digest.length > 0 && !MessageDigest.isEqual(digest, swap(signInfos.get(0).getHash()))) {
                 continue;
             }
 
