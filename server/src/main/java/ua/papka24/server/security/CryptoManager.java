@@ -34,6 +34,7 @@ package ua.papka24.server.security;
 
 import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.crypto.digests.GOST3411Digest;
+import ua.papka24.server.Main;
 import ua.papka24.server.db.dto.*;
 import ua.privatbank.cryptonite.CryptoniteException;
 import ua.privatbank.cryptonite.CryptoniteX;
@@ -476,10 +477,13 @@ public class CryptoManager {
     public static HashMap<String,X509Certificate> getUniqueCms(List<String> oldCmsB64List, String newCmsB64, byte[] digest)
             throws Exception {
 
+        Main.log.info("getUniqueCms() newCmsB64: {}", newCmsB64);
+
         HashMap<String, X509Certificate> newCmsList = new HashMap<>();
         List<String> allSidList = new ArrayList<>();
 
         for (String oldCmsB64 : oldCmsB64List) {
+            Main.log.info("getUniqueCms() oldCmsB64: {}", oldCmsB64);
             List<SignInfo> signInfos = CryptoniteX.cmsVerify(Base64.getDecoder().decode(oldCmsB64));
             for (SignInfo signInfo : signInfos) {
                 allSidList.add(Base64.getEncoder().encodeToString(signInfo.getSignerId()));
@@ -497,8 +501,12 @@ public class CryptoManager {
             String newSid = Base64.getEncoder().encodeToString(signInfos.get(0).getSignerId());
             if (allSidList.stream().filter(sid -> sid.equals(newSid)).count() == 0) {
                 /* Подписи таким ключем еще нет. */
-                newCmsList.put(Base64.getEncoder().encodeToString(newCmsBytes), certBytesToX509(signInfos.get(0).getCertificateInfo().getEncoded()));
+                String cmsB64 = Base64.getEncoder().encodeToString(newCmsBytes);
+                byte[] certBytes = signInfos.get(0).getCertificateInfo().getEncoded();
+                newCmsList.put(cmsB64, certBytesToX509(certBytes));
                 allSidList.add(newSid);
+
+                Main.log.info("getUniqueCms() cmsB64: {}, cert: {}", newCmsB64, DatatypeConverter.printHexBinary(certBytes));
             }
         }
 
