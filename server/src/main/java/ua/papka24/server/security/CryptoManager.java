@@ -477,13 +477,13 @@ public class CryptoManager {
     public static HashMap<String,X509Certificate> getUniqueCms(List<String> oldCmsB64List, String newCmsB64, byte[] digest)
             throws Exception {
 
-        Main.log.info("getUniqueCms() newCmsB64: {}", newCmsB64);
+        System.out.printf("getUniqueCms() newCmsB64: %s\n", newCmsB64);
 
         HashMap<String, X509Certificate> newCmsList = new HashMap<>();
         List<String> allSidList = new ArrayList<>();
 
         for (String oldCmsB64 : oldCmsB64List) {
-            Main.log.info("getUniqueCms() oldCmsB64: {}", oldCmsB64);
+            System.out.printf("getUniqueCms() oldCmsB64: %s\n", oldCmsB64);
             List<SignInfo> signInfos = CryptoniteX.cmsVerify(Base64.getDecoder().decode(oldCmsB64));
             for (SignInfo signInfo : signInfos) {
                 allSidList.add(Base64.getEncoder().encodeToString(signInfo.getSignerId()));
@@ -506,7 +506,7 @@ public class CryptoManager {
                 newCmsList.put(cmsB64, certBytesToX509(certBytes));
                 allSidList.add(newSid);
 
-                Main.log.info("getUniqueCms() cmsB64: {}, cert: {}", newCmsB64, DatatypeConverter.printHexBinary(certBytes));
+                System.out.printf("getUniqueCms() cmsB64: %s, cert: %s\n", newCmsB64, DatatypeConverter.printHexBinary(certBytes));
             }
         }
 
