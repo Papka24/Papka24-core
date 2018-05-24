@@ -506,7 +506,7 @@ public class CryptoManager {
                 newCmsList.put(cmsB64, certBytesToX509(certBytes));
                 allSidList.add(newSid);
 
-                System.out.printf("getUniqueCms() cmsB64: %s, cert: %s\n", newCmsB64, DatatypeConverter.printHexBinary(certBytes));
+                System.out.printf("getUniqueCms() answer cmsB64: %s, cert: %s\n", cmsB64, DatatypeConverter.printHexBinary(certBytes));
             }
         }
 
