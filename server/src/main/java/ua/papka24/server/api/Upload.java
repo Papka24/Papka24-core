@@ -48,6 +48,7 @@ import ua.papka24.server.security.*;
 import ua.papka24.server.Main;
 import ua.papka24.server.api.helper.BillingHelper;
 import ua.papka24.server.utils.logger.Event;
+import ua.privatbank.cryptonite.CryptoniteX;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -264,7 +265,21 @@ public class Upload implements HttpHandler {
             /* Проверка наличия cms подписи. */
             byte[] pdfOrig = Files.readAllBytes(uploadedFileLocation.toPath());
             byte[] pdfWithCmsSign = getLastCmsFromMedoc(pdfOrig);
+            byte[] pdfWithoutSigns;
+
             try {
+                pdfWithoutSigns = CryptoniteX.cmsGetData(pdfOrig);
+                gostDigest.update(pdfWithoutSigns, 0, pdfWithoutSigns.length);
+                newName = Base64.getUrlEncoder().withoutPadding().encodeToString(gostDigest.doFinal());
+                if (pdfWithoutSigns != null) {
+                    try {
+                        fos = new FileOutputStream(uploadedFileLocation);
+                        fos.write(pdfWithoutSigns, 0, pdfWithoutSigns.length);
+                        fos.flush();
+                    } finally {
+                        if (fos != null) fos.close();
+                    }
+                }
                 cmsSignsWithoutData = CryptoManager.getCmsSignsWithoutData(pdfWithCmsSign != null ? pdfWithCmsSign : pdfOrig);
             } catch (Exception ignore) {
             }
