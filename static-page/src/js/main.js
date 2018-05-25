@@ -83,7 +83,7 @@ addEvent(window, "load", function () {
             docRender: "table",  // blocks, table
             docSorter: "date",   // date, names
             enableChat: false,
-            enableWss: false,
+            enableWss: true,
             docFilter: {
                 dateFrom: null,
                 dateTo: null,
