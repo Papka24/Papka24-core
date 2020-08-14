@@ -49,7 +49,7 @@ actionDoc = {
         if (userConfig.avatarLoadMode) {
             if (files[0].type != "image/png" && files[0].type != "image/jpeg") {
                 lastError = "Аватарку можливо створити з PNG JPEG файлів";
-            } else if (files[0].size > 2048000) {
+            } else if (files[0].size > userConfig.maxSize) {
                 lastError = "Завантаження файлів більше 2 МБ не підтримується :(";
             } else {
                 nf.push(files[0]);

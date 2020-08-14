@@ -96,6 +96,7 @@ addEvent(window, "load", function () {
             docs: [],
             cdnPath: "/cdn/",
             imgEnd: "-50.png",
+            maxSize: 10 * 1024000,
             avatarLoadMode: false,
             browserInfo: BrowserInfo(),
             // List of knows persons
